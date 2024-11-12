@@ -1,0 +1,362 @@
+---
+import PageLayout from '../layouts/BaseLayout.astro'
+import Section from '../components/Section.astro'
+import Card from '../components/Card.astro'
+import Label from '../components/Label.astro'
+import SkillLayout from '../components/SkillLayout.astro'
+
+import { Image } from 'astro:assets'
+import astro from '../assets/about-astro.svg'
+
+
+const languages = ['HTML', 'CSS', 'TypeScript']
+const frontend = ['Tailwind CSS', 'Astro', 'HTML', 'CSS', 'TypeScript', 'JavaScript', 'Markdown']
+const backend = ['Node.js', 'TypeScript', 'Astro']
+const others = ['Markdown', 'Git', 'VSCode', 'npm', 'Cloudflare']
+
+---
+
+<PageLayout meta={{ title: 'Home' }}>
+	<div class='flex w-full flex-col gap-y-10'>
+		<section class='flex flex-col items-center gap-y-7'>
+			<Image
+				src={astro}
+				alt='profile photo'
+				class='h-28 w-auto rounded-full bg-gray-100 p-2'
+				loading='eager'
+			/>
+
+			<div class='flex flex-col items-center gap-y-4'>
+				<h1 class='text-center text-3xl font-bold'>
+					Calculadora de compensación por retiro de árboles
+				</h1>
+
+				<div class='flex flex-wrap justify-start gap-x-7 gap-y-3 bg-gray-100 p-8 dark:bg-zinc-900'>
+					<Label title='Angel Gonzalez Mejía'>
+						<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' class='h-5 w-5' slot='icon'
+							><path
+								fill='currentColor'
+								d='M4.615 20q-.69 0-1.152-.462Q3 19.075 3 18.385v-9.77q0-.69.463-1.152Q3.925 7 4.615 7H9V5.615q0-.69.463-1.152Q9.925 4 10.615 4h2.77q.69 0 1.153.463q.462.462.462 1.152V7h4.385q.69 0 1.152.463q.463.462.463 1.152v9.77q0 .69-.462 1.152q-.463.463-1.153.463zm0-1h14.77q.23 0 .423-.192q.192-.193.192-.423v-9.77q0-.23-.192-.423Q19.615 8 19.385 8H4.615q-.23 0-.423.192Q4 8.385 4 8.615v9.77q0 .23.192.423q.193.192.423.192M10 7h4V5.615q0-.23-.192-.423Q13.615 5 13.385 5h-2.77q-.23 0-.423.192q-.192.193-.192.423zM4 19V8z'
+							></path></svg
+						>
+					</Label>
+					<Label title='Monserrat Villegas SanAntonio'>
+						<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' class='h-5 w-5' slot='icon'
+							><path
+								fill='currentColor'
+								d='M4.615 20q-.69 0-1.152-.462Q3 19.075 3 18.385v-9.77q0-.69.463-1.152Q3.925 7 4.615 7H9V5.615q0-.69.463-1.152Q9.925 4 10.615 4h2.77q.69 0 1.153.463q.462.462.462 1.152V7h4.385q.69 0 1.152.463q.463.462.463 1.152v9.77q0 .69-.462 1.152q-.463.463-1.153.463zm0-1h14.77q.23 0 .423-.192q.192-.193.192-.423v-9.77q0-.23-.192-.423Q19.615 8 19.385 8H4.615q-.23 0-.423.192Q4 8.385 4 8.615v9.77q0 .23.192.423q.193.192.423.192M10 7h4V5.615q0-.23-.192-.423Q13.615 5 13.385 5h-2.77q-.23 0-.423.192q-.192.193-.192.423zM4 19V8z'
+							></path></svg
+						>
+					</Label>
+					<Label title='Fátima Aguilar Medrano'>
+						<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' class='h-5 w-5' slot='icon'
+							><path
+								fill='currentColor'
+								d='M4.615 20q-.69 0-1.152-.462Q3 19.075 3 18.385v-9.77q0-.69.463-1.152Q3.925 7 4.615 7H9V5.615q0-.69.463-1.152Q9.925 4 10.615 4h2.77q.69 0 1.153.463q.462.462.462 1.152V7h4.385q.69 0 1.152.463q.463.462.463 1.152v9.77q0 .69-.462 1.152q-.463.463-1.153.463zm0-1h14.77q.23 0 .423-.192q.192-.193.192-.423v-9.77q0-.23-.192-.423Q19.615 8 19.385 8H4.615q-.23 0-.423.192Q4 8.385 4 8.615v9.77q0 .23.192.423q.193.192.423.192M10 7h4V5.615q0-.23-.192-.423Q13.615 5 13.385 5h-2.77q-.23 0-.423.192q-.192.193-.192.423zM4 19V8z'
+							></path></svg
+						>
+					</Label>
+					<Label title='José Antonio Gasca Robles'>
+						<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' class='h-5 w-5' slot='icon'
+							><path
+								fill='currentColor'
+								d='M4.615 20q-.69 0-1.152-.462Q3 19.075 3 18.385v-9.77q0-.69.463-1.152Q3.925 7 4.615 7H9V5.615q0-.69.463-1.152Q9.925 4 10.615 4h2.77q.69 0 1.153.463q.462.462.462 1.152V7h4.385q.69 0 1.152.463q.463.462.463 1.152v9.77q0 .69-.462 1.152q-.463.463-1.153.463zm0-1h14.77q.23 0 .423-.192q.192-.193.192-.423v-9.77q0-.23-.192-.423Q19.615 8 19.385 8H4.615q-.23 0-.423.192Q4 8.385 4 8.615v9.77q0 .23.192.423q.193.192.423.192M10 7h4V5.615q0-.23-.192-.423Q13.615 5 13.385 5h-2.77q-.23 0-.423.192q-.192.193-.192.423zM4 19V8z'
+							></path></svg
+						>
+					</Label>
+					<Label title='José Manuel Ramos iglesias'>
+						<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' class='h-5 w-5' slot='icon'
+							><path
+								fill='currentColor'
+								d='M4.615 20q-.69 0-1.152-.462Q3 19.075 3 18.385v-9.77q0-.69.463-1.152Q3.925 7 4.615 7H9V5.615q0-.69.463-1.152Q9.925 4 10.615 4h2.77q.69 0 1.153.463q.462.462.462 1.152V7h4.385q.69 0 1.152.463q.463.462.463 1.152v9.77q0 .69-.462 1.152q-.463.463-1.153.463zm0-1h14.77q.23 0 .423-.192q.192-.193.192-.423v-9.77q0-.23-.192-.423Q19.615 8 19.385 8H4.615q-.23 0-.423.192Q4 8.385 4 8.615v9.77q0 .23.192.423q.193.192.423.192M10 7h4V5.615q0-.23-.192-.423Q13.615 5 13.385 5h-2.77q-.23 0-.423.192q-.192.193-.192.423zM4 19V8z'
+							></path></svg
+						>
+					</Label>
+				</div>
+			</div>
+		</section>
+
+		<Section title='Acerca del proyecto'>
+			<p class='text-muted-foreground'>
+				Este proyecto es un programa diseñado para determinar la compensación por el retiro de
+				árboles. Su objetivo es proporcionar una evaluación precisa del árbol o de los árboles
+				afectados y calcular la cantidad de árboles que deben compensarse o, en su defecto, la
+				cantidad económica necesaria para cumplir con dicha compensación. De esta manera, el
+				programa promueve una compensación justa y sostenible, buscando equilibrar las necesidades
+				ambientales con las acciones humanas.
+			</p>
+		</Section>
+
+		<Section title='¿Qué se evalua?'>
+			<div class='flex flex-col items-center gap-y-4'>
+				<div class='flex flex-wrap justify-start gap-x-7 gap-y-3 bg-gray-100 p-8 dark:bg-zinc-900'>
+					<Label title='▪ Origen' />
+					<Label title='▪ Altura' />
+					<Label title='▪ Fronda' />
+					<Label title='▪ Estado Fitosanitario' />
+					<Label title='▪ Estado estructural' />
+					<Label title='▪ No. De fustes ' />
+					<Label title='▪ Daño a infraestructura ' />
+					<Label title='▪ Riesgo ' />
+					<Label title='▪ Valor social' />
+				</div>
+			</div>
+		</Section>
+
+		<Section title='Factores y valores a considerar'>
+			<Card subheading='A continuación, se presentan las evaluaciones de varios factores clave para determinar el estado y condición de los arboles.' />
+			<Card
+				heading='Altura del árbol'
+				subheading='Intervalo de valores y sus correspondientes valores'
+				imagePath='/src/assets/bonfire-svgrepo-com.svg'
+				altText='Altura del árbol'
+				imageClass='h-12 w-auto md:-left-16'
+			>
+				<table class='ml-4 text-muted-foreground'>
+					<thead>
+						<tr>
+							<th>Intervalo de valores</th>
+							<th>Valor</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Hasta 5</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>5 a 10</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>10 a 15</td>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>Más de 15</td>
+							<td>4</td>
+						</tr>
+					</tbody>
+				</table>
+			</Card>
+
+			<Card
+				heading='Diámetro a la altura del pecho'
+				subheading='Intervalo de valores y sus correspondientes valores'
+				imagePath='/src/assets/cactus-svgrepo-com.svg'
+				altText='Diámetro a la altura del pecho'
+				imageClass='h-12 w-auto md:-left-16'
+			>
+				<table class='ml-4 text-muted-foreground'>
+					<thead>
+						<tr>
+							<th>Intervalo de valores</th>
+							<th>Valor</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>5 a 15</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>15 a 25</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>25 a 40</td>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>Más de 40</td>
+							<td>4</td>
+						</tr>
+					</tbody>
+				</table>
+			</Card>
+
+			<Card
+				heading='Estado estructural'
+				subheading='Estado y sus correspondientes valores'
+				imagePath='/src/assets/camel-svgrepo-com.svg'
+				altText='Estado estructural'
+				imageClass='h-12 w-auto md:-left-16'
+			>
+				<table class='ml-4 text-muted-foreground'>
+					<thead>
+						<tr>
+							<th>Estado</th>
+							<th>Valor</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Irrecuperable</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>Susceptible de mejora</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>Buena</td>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>Muy buena</td>
+							<td>4</td>
+						</tr>
+					</tbody>
+				</table>
+			</Card>
+
+			<Card
+				heading='Estado fitosanitario'
+				subheading='Estado y sus correspondientes valores'
+				imagePath='/src/assets/seagull-svgrepo-com.svg'
+				altText='Estado fitosanitario'
+				imageClass='h-12 w-auto md:-left-16'
+			>
+				<table class='ml-4 text-muted-foreground'>
+					<thead>
+						<tr>
+							<th>Estado</th>
+							<th>Valor</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Irrecuperable</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>Susceptible de mejora</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>Buena</td>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>Muy buena</td>
+							<td>4</td>
+						</tr>
+					</tbody>
+				</table>
+			</Card>
+
+			<Card
+				heading='Daño a infraestructura'
+				subheading='Daño y sus correspondientes valores'
+				imagePath='/src/assets/tree-svgrepo-com (1).svg'
+				altText='Daño a infraestructura'
+				imageClass='h-12 w-auto md:-left-16'
+			>
+				<table class='ml-4 text-muted-foreground'>
+					<thead>
+						<tr>
+							<th>Daño</th>
+							<th>Valor</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Si hay daño</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>No hay daño</td>
+							<td>4</td>
+						</tr>
+					</tbody>
+				</table>
+			</Card>
+
+			<Card
+				heading='Valor'
+				subheading='Tipo y sus correspondientes valores'
+				imagePath='/src/assets/tree-svgrepo-com (2).svg'
+				altText='Valor del árbol'
+				imageClass='h-12 w-auto md:-left-16'
+			>
+				<table class='ml-4 text-muted-foreground'>
+					<thead>
+						<tr>
+							<th>Tipo</th>
+							<th>Valor</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Introducido</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>Nativo</td>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>Mezquite</td>
+							<td>4</td>
+						</tr>
+					</tbody>
+				</table>
+			</Card>
+
+			<Card
+				heading='Riesgo'
+				subheading='Tipo de riesgo y sus correspondientes valores'
+				imagePath='/src/assets/tree-svgrepo-com.svg'
+				altText='Riesgo asociado al árbol'
+				imageClass='h-12 w-auto md:-left-16'
+			>
+				<table class='ml-4 text-muted-foreground'>
+					<thead>
+						<tr>
+							<th>Tipo de riesgo</th>
+							<th>Valor</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Riesgo a personas</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>Riesgo a infraestructura</td>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>Sin riesgo</td>
+							<td>4</td>
+						</tr>
+					</tbody>
+				</table>
+			</Card>
+		</Section>
+
+		<Section title='Habilidades Necesarias Para el Desarrollo del Proyecto'>
+			<SkillLayout title='Lenguajes' skills={languages} />
+			<SkillLayout title='Frontend' skills={frontend} />
+			<SkillLayout title='Backend' skills={backend} />
+			<SkillLayout title='Others' skills={others} />
+		</Section>
+	</div>
+</PageLayout>
+
+<style>
+	table {
+		margin-top: 1rem;
+		border-collapse: collapse;
+	}
+
+	table th {
+		text-align: left;
+		padding: 0.5rem;
+	}
+
+	table td,
+	table tr {
+		padding: 0.5rem;
+	}
+</style>
