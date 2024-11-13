@@ -12,7 +12,7 @@ const meta = {
 
 <PageLayout meta={meta}>
 	<div class='flex w-full flex-col gap-8'>
-		<div>
+		<div class=''>
 			<Button title='Volver' href='/' style='button'>
 				<svg
 					xmlns='http://www.w3.org/2000/svg'
@@ -32,33 +32,532 @@ const meta = {
 
 		<Section title='Factores y Valores a Considerar'>
 			<Card
-				heading='Altura del árbol'
-				subheading='Rango de alturas en metros, según el crecimiento actual del árbol'
+				subheading='Por favor, selecciona los factores que consideras relevantes para calcular la aproximación. Asegúrate de elegir los elementos adecuados antes de proceder con el cálculo.'
 			/>
-			<Card
-				heading='Diámetro a la altura del pecho'
-				subheading='Medición en centímetros del tronco a 1.3 metros de altura'
-			/>
-			<Card
-				heading='Estado estructural'
-				subheading='Evaluación de la estabilidad y robustez del árbol'
-			/>
-			<Card
-				heading='Estado fitosanitario'
-				subheading='Condición de salud general, incluyendo presencia de plagas o enfermedades'
-			/>
-			<Card
-				heading='Daño a la infraestructura'
-				subheading='Evidencia de impactos o daños en estructuras cercanas causados por el árbol'
-			/>
-			<Card
-				heading='Valor'
-				subheading='Evaluación del valor ecológico, estético o económico del árbol'
-			/>
-			<Card
-				heading='Riesgo'
-				subheading='Nivel de riesgo potencial para personas o propiedades en caso de caída'
-			/>
+
+			<form class='space-y-6' id='miFormulario'>
+				<Card
+					heading='Altura del árbol'
+					subheading='Rango de alturas en metros, según el crecimiento actual del árbol'
+				>
+					<div class='mt-4 grid grid-cols-2 gap-4'>
+						<div class='flex items-center'>
+							<input
+								id='altura-1'
+								type='radio'
+								name='altura'
+								value='1'
+								checked
+								class='radio-input hidden'
+							/>
+							<label
+								for='altura-1'
+								class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+							>
+								Hasta 5 m (Valor: 1)
+							</label>
+						</div>
+
+						<div class='flex items-center'>
+							<input
+								id='altura-2'
+								type='radio'
+								name='altura'
+								value='2'
+								class='radio-input hidden'
+							/>
+							<label
+								for='altura-2'
+								class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+							>
+								5 a 10 m (Valor: 2)
+							</label>
+						</div>
+
+						<div class='flex items-center'>
+							<input
+								id='altura-3'
+								type='radio'
+								name='altura'
+								value='3'
+								class='radio-input hidden'
+							/>
+							<label
+								for='altura-3'
+								class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+							>
+								10 a 15 m (Valor: 3)
+							</label>
+						</div>
+
+						<div class='flex items-center'>
+							<input
+								id='altura-4'
+								type='radio'
+								name='altura'
+								value='4'
+								class='radio-input hidden'
+							/>
+							<label
+								for='altura-4'
+								class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+							>
+								Más de 15 m (Valor: 4)
+							</label>
+						</div>
+					</div>
+				</Card>
+
+				<Card
+					heading='Diámetro a la altura del pecho'
+					subheading='Medición en centímetros del tronco a 1.3 metros de altura'
+				>
+					<div class='text-muted-foreground'>
+						<div class='mt-4 grid grid-cols-2 gap-4'>
+							<div class='flex items-center'>
+								<input
+									id='diametro-1'
+									type='radio'
+									name='diametro'
+									value='1'
+									checked
+									class='radio-input hidden'
+								/>
+								<label
+									for='diametro-1'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+								>
+									5 a 15 cm (Valor: 1)
+								</label>
+							</div>
+
+							<div class='flex items-center'>
+								<input
+									id='diametro-2'
+									type='radio'
+									name='diametro'
+									value='2'
+									class='radio-input hidden'
+								/>
+								<label
+									for='diametro-2'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+								>
+									15 a 25 cm (Valor: 2)
+								</label>
+							</div>
+
+							<div class='flex items-center'>
+								<input
+									id='diametro-3'
+									type='radio'
+									name='diametro'
+									value='3'
+									class='radio-input hidden'
+								/>
+								<label
+									for='diametro-3'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+								>
+									25 a 40 cm (Valor: 3)
+								</label>
+							</div>
+
+							<div class='flex items-center'>
+								<input
+									id='diametro-4'
+									type='radio'
+									name='diametro'
+									value='4'
+									class='radio-input hidden'
+								/>
+								<label
+									for='diametro-4'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+								>
+									Más de 40 cm (Valor: 4)
+								</label>
+							</div>
+						</div>
+					</div>
+				</Card>
+
+				<Card
+					heading='Estado estructural'
+					subheading='Evaluación de la estabilidad y robustez del árbol'
+				>
+					<div class='text-muted-foreground'>
+						<div class='mt-4 grid grid-cols-2 gap-4'>
+							<div class='flex items-center'>
+								<input
+									id='estado_estructural-1'
+									type='radio'
+									name='estado_estructural'
+									value='1'
+									checked
+									class='radio-input hidden'
+								/>
+								<label
+									for='estado_estructural-1'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Irrecuperable (Valor: 1)
+								</label>
+							</div>
+
+							<div class='flex items-center'>
+								<input
+									id='estado_estructural-2'
+									type='radio'
+									name='estado_estructural'
+									value='2'
+									class='radio-input hidden'
+								/>
+								<label
+									for='estado_estructural-2'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Susceptible de mejora (Valor: 2)
+								</label>
+							</div>
+
+							<div class='flex items-center'>
+								<input
+									id='estado_estructural-3'
+									type='radio'
+									name='estado_estructural'
+									value='3'
+									class='radio-input hidden'
+								/>
+								<label
+									for='estado_estructural-3'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Buena (Valor: 3)
+								</label>
+							</div>
+
+							<div class='flex items-center'>
+								<input
+									id='estado_estructural-4'
+									type='radio'
+									name='estado_estructural'
+									value='4'
+									class='radio-input hidden'
+								/>
+								<label
+									for='estado_estructural-4'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Muy buena (Valor: 4)
+								</label>
+							</div>
+						</div>
+					</div>
+				</Card>
+
+				<Card heading='Estado fitosanitario' subheading='Estado y sus correspondientes valores'>
+					<div class='text-muted-foreground'>
+						<div class='mt-4 grid grid-cols-2 gap-4'>
+							<div class='flex items-center'>
+								<input
+									id='estado_fitosanitario-1'
+									type='radio'
+									name='estado_fitosanitario'
+									value='1'
+									checked
+									class='radio-input hidden'
+								/>
+								<label
+									for='estado_fitosanitario-1'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Irrecuperable (Valor: 1)
+								</label>
+							</div>
+
+							<div class='flex items-center'>
+								<input
+									id='estado_fitosanitario-2'
+									type='radio'
+									name='estado_fitosanitario'
+									value='2'
+									class='radio-input hidden'
+								/>
+								<label
+									for='estado_fitosanitario-2'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Susceptible de mejora (Valor: 2)
+								</label>
+							</div>
+
+							<div class='flex items-center'>
+								<input
+									id='estado_fitosanitario-3'
+									type='radio'
+									name='estado_fitosanitario'
+									value='3'
+									class='radio-input hidden'
+								/>
+								<label
+									for='estado_fitosanitario-3'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Buena (Valor: 3)
+								</label>
+							</div>
+
+							<div class='flex items-center'>
+								<input
+									id='estado_fitosanitario-4'
+									type='radio'
+									name='estado_fitosanitario'
+									value='4'
+									class='radio-input hidden'
+								/>
+								<label
+									for='estado_fitosanitario-4'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Muy buena (Valor: 4)
+								</label>
+							</div>
+						</div>
+					</div>
+				</Card>
+
+				<Card heading='Daño a infraestructura' subheading='Daño y sus correspondientes valores'>
+					<div class='text-muted-foreground'>
+						<div class='mt-4 grid grid-cols-2 gap-4'>
+							<div class='flex items-center'>
+								<input
+									id='danio-infraestructura-1'
+									type='radio'
+									name='danio-infraestructura'
+									value='2'
+									checked
+									class='radio-input hidden'
+								/>
+								<label
+									for='danio-infraestructura-1'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Si hay daño (Valor: 2)
+								</label>
+							</div>
+
+							<div class='flex items-center'>
+								<input
+									id='danio-infraestructura-2'
+									type='radio'
+									name='danio-infraestructura'
+									value='4'
+									class='radio-input hidden'
+								/>
+								<label
+									for='danio-infraestructura-2'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									No hay daño (Valor: 4)
+								</label>
+							</div>
+						</div>
+					</div>
+				</Card>
+
+				<Card heading='Valor' subheading='Tipo y sus correspondientes valores'>
+					<div class='text-muted-foreground'>
+						<div class='mt-4 grid grid-cols-2 gap-4'>
+							<div class='flex items-center'>
+								<input
+									id='valor-1'
+									type='radio'
+									name='valor'
+									value='1'
+									checked
+									class='radio-input hidden'
+								/>
+								<label
+									for='valor-1'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Introducido (Valor: 1)
+								</label>
+							</div>
+
+							<div class='flex items-center'>
+								<input
+									id='valor-2'
+									type='radio'
+									name='valor'
+									value='3'
+									class='radio-input hidden'
+								/>
+								<label
+									for='valor-2'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Nativo (Valor: 3)
+								</label>
+							</div>
+
+							<div class='flex items-center'>
+								<input
+									id='valor-3'
+									type='radio'
+									name='valor'
+									value='4'
+									class='radio-input hidden'
+								/>
+								<label
+									for='valor-3'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Mezquite (Valor: 4)
+								</label>
+							</div>
+						</div>
+					</div>
+				</Card>
+
+				<Card heading='Riesgo' subheading='Tipo de riesgo y sus correspondientes valores'>
+					<div class='text-muted-foreground'>
+						<div class='mt-4 grid grid-cols-2 gap-4'>
+							<div class='flex items-center'>
+								<input
+									id='riesgo-1'
+									type='radio'
+									name='riesgo'
+									value='2'
+									checked
+									class='radio-input hidden'
+								/>
+								<label
+									for='riesgo-1'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Riesgo a personas (Valor: 2)
+								</label>
+							</div>
+
+							<div class='flex items-center'>
+								<input
+									id='riesgo-2'
+									type='radio'
+									name='riesgo'
+									value='3'
+									class='radio-input hidden'
+								/>
+								<label
+									for='riesgo-2'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Riesgo a infraestructura (Valor: 3)
+								</label>
+							</div>
+
+							<div class='flex items-center'>
+								<input
+									id='riesgo-3'
+									type='radio'
+									name='riesgo'
+									value='4'
+									class='radio-input hidden'
+								/>
+								<label
+									for='riesgo-3'
+									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+								>
+									Sin riesgo (Valor: 4)
+								</label>
+							</div>
+						</div>
+					</div>
+				</Card>
+
+				<button
+					type='submit'
+					class='btn-primary focus:ring- mt-6 rounded border-2 border-gray-800 bg-white px-4 py-2 font-bold text-gray-950 transition-colors duration-300 hover:bg-gray-800 hover:text-gray-50 dark:border-gray-100 dark:bg-transparent dark:text-gray-100 dark:hover:bg-gray-100 dark:hover:text-gray-950'
+				>
+					Calcular Compensación
+				</button>
+			</form>
 		</Section>
+
+		<Card heading='Compensación' subheading='Resultado de la compensación' >
+			<div class='respuestas'></div>
+		</Card>
+
 	</div>
 </PageLayout>
+
+<script>
+	const $campoRespuesta = document.querySelector('.respuestas') as HTMLDivElement
+
+	document.getElementById('miFormulario')?.addEventListener('submit', function (event) {
+		// Previene el comportamiento por defecto del formulario
+		event.preventDefault();
+
+		// Creamos un objeto para almacenar los valores
+		const selectedValues: Record<string, string> = {}
+
+		// Obtenemos todos los elementos de tipo radio
+		const radios = document.querySelectorAll('input[type="radio"]') as NodeListOf<HTMLInputElement>
+
+		// Iteramos sobre los radios para agregar los valores seleccionados al objeto
+		radios.forEach((radio, index) => {
+			if (radio.checked) {
+				selectedValues[radio.name] = radio.value
+			}
+		})
+
+		// Imprimir todos los valores seleccionados
+		$campoRespuesta.innerHTML = `
+				<p>Altura del árbol: ${selectedValues.altura}</p>
+				<p>Diámetro a la altura del pecho: ${selectedValues.diametro}</p>
+				<p>Estado estructural: ${selectedValues.estado_estructural}</p>
+				<p>Estado fitosanitario: ${selectedValues.estado_fitosanitario}</p>
+				<p>Daño a infraestructura: ${selectedValues.danio_infraestructura}</p>
+				<p>Valor: ${selectedValues.valor}</p>
+				<p>Riesgo: ${selectedValues.riesgo}</p>
+			`
+	})
+</script>
+
+<style>
+	/* Estilos comunes */
+	.radio-input {
+		display: none;
+	}
+
+	.radio-label {
+		display: flex;
+		text-align: center;
+		flex-direction: column;
+		padding: 0.5rem 1rem;
+		display: inline-block;
+		cursor: pointer;
+		font-size: 1rem;
+		font-weight: 500;
+		border-radius: 0.2rem;
+		transition:
+			background-color 0.3s,
+			color 0.3s,
+			border 0.3s;
+	}
+
+	/* Modo claro */
+	.radio-input:checked + .radio-label {
+		@apply border-gray-800 bg-gray-800 text-gray-50 dark:border-gray-800 dark:bg-white dark:text-gray-800;
+		color: #ffffff; /* Texto oscuro */
+	}
+
+	/* Efecto hover en modo claro */
+	.radio-label:hover {
+		background-color: #f3f4f6;
+		color: #000000;
+		border-color: #d1d5db;
+		@apply dark:border-gray-800 dark:bg-gray-800 dark:text-gray-50;
+	}
+</style>

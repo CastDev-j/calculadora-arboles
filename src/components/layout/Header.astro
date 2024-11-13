@@ -1,7 +1,7 @@
 ---
 
 ---
-
+<div id="top"></div>
 <header class='mb-12 flex w-full flex-wrap pb-3 text-sm sm:flex-nowrap sm:justify-start'>
 	<nav
 		class='relative mx-auto flex w-full items-center justify-between sm:flex sm:items-center'
@@ -53,12 +53,18 @@
 	function getCurrentTheme() {
 		return localStorage.getItem('theme')
 	}
+
 	const toggleDarkModeButton = document.getElementById('toggleDarkMode')
 
-	toggleDarkModeButton?.addEventListener('click', () => {
+	toggleDarkModeButton!.addEventListener('click', () => {
 		const toggleDarkModeEvent = new CustomEvent('theme-change', {
 			detail: { theme: getCurrentTheme() === 'light' ? 'dark' : 'light' }
 		})
 		document.dispatchEvent(toggleDarkModeEvent)
 	})
+
+
+	
+
+
 </script>

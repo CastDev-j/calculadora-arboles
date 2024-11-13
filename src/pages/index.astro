@@ -8,12 +8,10 @@ import SkillLayout from '../components/SkillLayout.astro'
 import { Image } from 'astro:assets'
 import astro from '../assets/about-astro.svg'
 
-
 const languages = ['HTML', 'CSS', 'TypeScript']
 const frontend = ['Tailwind CSS', 'Astro', 'HTML', 'CSS', 'TypeScript', 'JavaScript', 'Markdown']
 const backend = ['Node.js', 'TypeScript', 'Astro']
 const others = ['Markdown', 'Git', 'VSCode', 'npm', 'Cloudflare']
-
 ---
 
 <PageLayout meta={{ title: 'Home' }}>
@@ -104,7 +102,9 @@ const others = ['Markdown', 'Git', 'VSCode', 'npm', 'Cloudflare']
 		</Section>
 
 		<Section title='Factores y valores a considerar'>
-			<Card subheading='A continuación, se presentan las evaluaciones de varios factores clave para determinar el estado y condición de los arboles.' />
+			<Card
+				subheading='A continuación, se presentan las evaluaciones de varios factores clave para determinar el estado y condición de los arboles.'
+			/>
 			<Card
 				heading='Altura del árbol'
 				subheading='Intervalo de valores y sus correspondientes valores'
