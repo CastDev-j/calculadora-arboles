@@ -1,8 +1,10 @@
 ---
+export const prerender = false
 import Button from '@/components/Button.astro'
 import Card from '@/components/Card.astro'
 import Section from '@/components/Section.astro'
 import PageLayout from '@/layouts/BaseLayout.astro'
+import Image from 'astro/components/Image.astro'
 
 const meta = {
 	description: "A list of all the topics I've written about in my posts",
@@ -34,499 +36,738 @@ const meta = {
 			<Card
 				subheading='Por favor, selecciona los factores que consideras relevantes para calcular la aproximación. Asegúrate de elegir los elementos adecuados antes de proceder con el cálculo.'
 			/>
-
-			<form class='space-y-6' id='miFormulario'>
-				<Card
-					heading='Altura del árbol'
-					subheading='Rango de alturas en metros, según el crecimiento actual del árbol'
-				>
-					<div class='mt-4 grid grid-cols-2 gap-4'>
-						<div class='flex items-center'>
-							<input
-								id='altura-1'
-								type='radio'
-								name='altura'
-								value='1'
-								checked
-								class='radio-input hidden'
-							/>
-							<label
-								for='altura-1'
-								class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
-							>
-								Hasta 5 m (Valor: 1)
-							</label>
-						</div>
-
-						<div class='flex items-center'>
-							<input
-								id='altura-2'
-								type='radio'
-								name='altura'
-								value='2'
-								class='radio-input hidden'
-							/>
-							<label
-								for='altura-2'
-								class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
-							>
-								5 a 10 m (Valor: 2)
-							</label>
-						</div>
-
-						<div class='flex items-center'>
-							<input
-								id='altura-3'
-								type='radio'
-								name='altura'
-								value='3'
-								class='radio-input hidden'
-							/>
-							<label
-								for='altura-3'
-								class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
-							>
-								10 a 15 m (Valor: 3)
-							</label>
-						</div>
-
-						<div class='flex items-center'>
-							<input
-								id='altura-4'
-								type='radio'
-								name='altura'
-								value='4'
-								class='radio-input hidden'
-							/>
-							<label
-								for='altura-4'
-								class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
-							>
-								Más de 15 m (Valor: 4)
-							</label>
-						</div>
+			<Card class='mx-auto flex w-full max-w-2xl flex-col'>
+				<!-- Barra de progreso -->
+				<div class='relative mb-6 h-2 w-full rounded bg-gray-300 dark:bg-gray-800'>
+					<div
+						id='progress-bar'
+						class='h-2 rounded bg-gray-800 transition-all duration-300 dark:bg-gray-50'
+						style='width: 0%;'
+					>
 					</div>
-				</Card>
+				</div>
 
-				<Card
-					heading='Diámetro a la altura del pecho'
-					subheading='Medición en centímetros del tronco a 1.3 metros de altura'
-				>
-					<div class='text-muted-foreground'>
-						<div class='mt-4 grid grid-cols-2 gap-4'>
-							<div class='flex items-center'>
-								<input
-									id='diametro-1'
-									type='radio'
-									name='diametro'
-									value='1'
-									checked
-									class='radio-input hidden'
-								/>
-								<label
-									for='diametro-1'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
-								>
-									5 a 15 cm (Valor: 1)
-								</label>
-							</div>
+				<!-- Contenedor del formulario -->
+				<form id='miFormulario' class='flex flex-col space-y-2'>
+					<!-- Paso 1 -->
+					<div class='step hidden' data-step='1'>
+						<Card
+							class='min-h-[275px] border-none'
+							heading='Altura del árbol'
+							subheading='Rango de alturas en metros, según el crecimiento actual del árbol'
+						>
+							<div class='mt-4 grid grid-cols-2 gap-4'>
+								<div class='flex items-center'>
+									<input
+										id='altura-1'
+										type='radio'
+										name='altura'
+										value='1'
+										checked
+										class='radio-input hidden'
+									/>
+									<label
+										for='altura-1'
+										class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+									>
+										Hasta 5 m (Valor: 1)
+									</label>
+								</div>
 
-							<div class='flex items-center'>
-								<input
-									id='diametro-2'
-									type='radio'
-									name='diametro'
-									value='2'
-									class='radio-input hidden'
-								/>
-								<label
-									for='diametro-2'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
-								>
-									15 a 25 cm (Valor: 2)
-								</label>
-							</div>
+								<div class='flex items-center'>
+									<input
+										id='altura-2'
+										type='radio'
+										name='altura'
+										value='2'
+										class='radio-input hidden'
+									/>
+									<label
+										for='altura-2'
+										class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+									>
+										5 a 10 m (Valor: 2)
+									</label>
+								</div>
 
-							<div class='flex items-center'>
-								<input
-									id='diametro-3'
-									type='radio'
-									name='diametro'
-									value='3'
-									class='radio-input hidden'
-								/>
-								<label
-									for='diametro-3'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
-								>
-									25 a 40 cm (Valor: 3)
-								</label>
-							</div>
+								<div class='flex items-center'>
+									<input
+										id='altura-3'
+										type='radio'
+										name='altura'
+										value='3'
+										class='radio-input hidden'
+									/>
+									<label
+										for='altura-3'
+										class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+									>
+										10 a 15 m (Valor: 3)
+									</label>
+								</div>
 
-							<div class='flex items-center'>
-								<input
-									id='diametro-4'
-									type='radio'
-									name='diametro'
-									value='4'
-									class='radio-input hidden'
-								/>
-								<label
-									for='diametro-4'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
-								>
-									Más de 40 cm (Valor: 4)
-								</label>
+								<div class='flex items-center'>
+									<input
+										id='altura-4'
+										type='radio'
+										name='altura'
+										value='4'
+										class='radio-input hidden'
+									/>
+									<label
+										for='altura-4'
+										class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+									>
+										Más de 15 m (Valor: 4)
+									</label>
+								</div>
 							</div>
-						</div>
+						</Card>
 					</div>
-				</Card>
 
-				<Card
-					heading='Estado estructural'
-					subheading='Evaluación de la estabilidad y robustez del árbol'
-				>
-					<div class='text-muted-foreground'>
-						<div class='mt-4 grid grid-cols-2 gap-4'>
-							<div class='flex items-center'>
-								<input
-									id='estado_estructural-1'
-									type='radio'
-									name='estado_estructural'
-									value='1'
-									checked
-									class='radio-input hidden'
-								/>
-								<label
-									for='estado_estructural-1'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Irrecuperable (Valor: 1)
-								</label>
-							</div>
+					<!-- Paso 2 -->
+					<div class='step hidden' data-step='2'>
+						<Card
+							class='min-h-[275px] border-none'
+							heading='Diámetro a la altura del pecho'
+							subheading='Medición en centímetros del tronco a 1.3 metros de altura'
+						>
+							<div class='text-muted-foreground'>
+								<div class='mt-4 grid grid-cols-2 gap-4'>
+									<div class='flex items-center'>
+										<input
+											id='diametro-1'
+											type='radio'
+											name='diametro'
+											value='1'
+											checked
+											class='radio-input hidden'
+										/>
+										<label
+											for='diametro-1'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+										>
+											5 a 15 cm (Valor: 1)
+										</label>
+									</div>
 
-							<div class='flex items-center'>
-								<input
-									id='estado_estructural-2'
-									type='radio'
-									name='estado_estructural'
-									value='2'
-									class='radio-input hidden'
-								/>
-								<label
-									for='estado_estructural-2'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Susceptible de mejora (Valor: 2)
-								</label>
-							</div>
+									<div class='flex items-center'>
+										<input
+											id='diametro-2'
+											type='radio'
+											name='diametro'
+											value='2'
+											class='radio-input hidden'
+										/>
+										<label
+											for='diametro-2'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+										>
+											15 a 25 cm (Valor: 2)
+										</label>
+									</div>
 
-							<div class='flex items-center'>
-								<input
-									id='estado_estructural-3'
-									type='radio'
-									name='estado_estructural'
-									value='3'
-									class='radio-input hidden'
-								/>
-								<label
-									for='estado_estructural-3'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Buena (Valor: 3)
-								</label>
-							</div>
+									<div class='flex items-center'>
+										<input
+											id='diametro-3'
+											type='radio'
+											name='diametro'
+											value='3'
+											class='radio-input hidden'
+										/>
+										<label
+											for='diametro-3'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+										>
+											25 a 40 cm (Valor: 3)
+										</label>
+									</div>
 
-							<div class='flex items-center'>
-								<input
-									id='estado_estructural-4'
-									type='radio'
-									name='estado_estructural'
-									value='4'
-									class='radio-input hidden'
-								/>
-								<label
-									for='estado_estructural-4'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Muy buena (Valor: 4)
-								</label>
+									<div class='flex items-center'>
+										<input
+											id='diametro-4'
+											type='radio'
+											name='diametro'
+											value='4'
+											class='radio-input hidden'
+										/>
+										<label
+											for='diametro-4'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300'
+										>
+											Más de 40 cm (Valor: 4)
+										</label>
+									</div>
+								</div>
 							</div>
-						</div>
+						</Card>
 					</div>
-				</Card>
+					<!-- Paso 3 -->
+					<div class='step hidden' data-step='3'>
+						<Card
+							class='min-h-[275px] border-none'
+							heading='Estado estructural'
+							subheading='Evaluación de la estabilidad y robustez del árbol'
+						>
+							<div class='text-muted-foreground'>
+								<div class='mt-4 grid grid-cols-2 gap-4'>
+									<div class='flex items-center'>
+										<input
+											id='estado_estructural-1'
+											type='radio'
+											name='estado_estructural'
+											value='1'
+											checked
+											class='radio-input hidden'
+										/>
+										<label
+											for='estado_estructural-1'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Irrecuperable (Valor: 1)
+										</label>
+									</div>
 
-				<Card heading='Estado fitosanitario' subheading='Estado y sus correspondientes valores'>
-					<div class='text-muted-foreground'>
-						<div class='mt-4 grid grid-cols-2 gap-4'>
-							<div class='flex items-center'>
-								<input
-									id='estado_fitosanitario-1'
-									type='radio'
-									name='estado_fitosanitario'
-									value='1'
-									checked
-									class='radio-input hidden'
-								/>
-								<label
-									for='estado_fitosanitario-1'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Irrecuperable (Valor: 1)
-								</label>
-							</div>
+									<div class='flex items-center'>
+										<input
+											id='estado_estructural-2'
+											type='radio'
+											name='estado_estructural'
+											value='2'
+											class='radio-input hidden'
+										/>
+										<label
+											for='estado_estructural-2'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Susceptible de mejora (Valor: 2)
+										</label>
+									</div>
 
-							<div class='flex items-center'>
-								<input
-									id='estado_fitosanitario-2'
-									type='radio'
-									name='estado_fitosanitario'
-									value='2'
-									class='radio-input hidden'
-								/>
-								<label
-									for='estado_fitosanitario-2'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Susceptible de mejora (Valor: 2)
-								</label>
-							</div>
+									<div class='flex items-center'>
+										<input
+											id='estado_estructural-3'
+											type='radio'
+											name='estado_estructural'
+											value='3'
+											class='radio-input hidden'
+										/>
+										<label
+											for='estado_estructural-3'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Buena (Valor: 3)
+										</label>
+									</div>
 
-							<div class='flex items-center'>
-								<input
-									id='estado_fitosanitario-3'
-									type='radio'
-									name='estado_fitosanitario'
-									value='3'
-									class='radio-input hidden'
-								/>
-								<label
-									for='estado_fitosanitario-3'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Buena (Valor: 3)
-								</label>
+									<div class='flex items-center'>
+										<input
+											id='estado_estructural-4'
+											type='radio'
+											name='estado_estructural'
+											value='4'
+											class='radio-input hidden'
+										/>
+										<label
+											for='estado_estructural-4'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Muy buena (Valor: 4)
+										</label>
+									</div>
+								</div>
 							</div>
-
-							<div class='flex items-center'>
-								<input
-									id='estado_fitosanitario-4'
-									type='radio'
-									name='estado_fitosanitario'
-									value='4'
-									class='radio-input hidden'
-								/>
-								<label
-									for='estado_fitosanitario-4'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Muy buena (Valor: 4)
-								</label>
-							</div>
-						</div>
+						</Card>
 					</div>
-				</Card>
+					<!-- Paso 4 -->
+					<div class='step hidden' data-step='4'>
+						<Card
+							class='min-h-[275px] border-none'
+							heading='Estado fitosanitario'
+							subheading='Evaluación de la salud y vitalidad del árbol'
+						>
+							<div class='text-muted-foreground'>
+								<div class='mt-4 grid grid-cols-2 gap-4'>
+									<div class='flex items-center'>
+										<input
+											id='estado_fitosanitario-1'
+											type='radio'
+											name='estado_fitosanitario'
+											value='1'
+											checked
+											class='radio-input hidden'
+										/>
+										<label
+											for='estado_fitosanitario-1'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Irrecuperable (Valor: 1)
+										</label>
+									</div>
 
-				<Card heading='Daño a infraestructura' subheading='Daño y sus correspondientes valores'>
-					<div class='text-muted-foreground'>
-						<div class='mt-4 grid grid-cols-2 gap-4'>
-							<div class='flex items-center'>
-								<input
-									id='danio-infraestructura-1'
-									type='radio'
-									name='danio-infraestructura'
-									value='2'
-									checked
-									class='radio-input hidden'
-								/>
-								<label
-									for='danio-infraestructura-1'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Si hay daño (Valor: 2)
-								</label>
-							</div>
+									<div class='flex items-center'>
+										<input
+											id='estado_fitosanitario-2'
+											type='radio'
+											name='estado_fitosanitario'
+											value='2'
+											class='radio-input hidden'
+										/>
+										<label
+											for='estado_fitosanitario-2'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Susceptible de mejora (Valor: 2)
+										</label>
+									</div>
 
-							<div class='flex items-center'>
-								<input
-									id='danio-infraestructura-2'
-									type='radio'
-									name='danio-infraestructura'
-									value='4'
-									class='radio-input hidden'
-								/>
-								<label
-									for='danio-infraestructura-2'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									No hay daño (Valor: 4)
-								</label>
+									<div class='flex items-center'>
+										<input
+											id='estado_fitosanitario-3'
+											type='radio'
+											name='estado_fitosanitario'
+											value='3'
+											class='radio-input hidden'
+										/>
+										<label
+											for='estado_fitosanitario-3'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Buena (Valor: 3)
+										</label>
+									</div>
+
+									<div class='flex items-center'>
+										<input
+											id='estado_fitosanitario-4'
+											type='radio'
+											name='estado_fitosanitario'
+											value='4'
+											class='radio-input hidden'
+										/>
+										<label
+											for='estado_fitosanitario-4'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Muy buena (Valor: 4)
+										</label>
+									</div>
+								</div>
 							</div>
-						</div>
+						</Card>
 					</div>
-				</Card>
+					<!-- Paso 5 -->
+					<div class='step hidden' data-step='5'>
+						<Card
+							class='min-h-[275px] border-none'
+							heading='Daño a infraestructura'
+							subheading='Evaluación de los daños a la infraestructura'
+						>
+							<div class='text-muted-foreground'>
+								<div class='mt-4 grid grid-cols-2 gap-4'>
+									<div class='flex items-center'>
+										<input
+											id='danio-infraestructura-1'
+											type='radio'
+											name='danio_infraestructura'
+											value='2'
+											checked
+											class='radio-input hidden'
+										/>
+										<label
+											for='danio-infraestructura-1'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Si hay daño (Valor: 2)
+										</label>
+									</div>
 
-				<Card heading='Valor' subheading='Tipo y sus correspondientes valores'>
-					<div class='text-muted-foreground'>
-						<div class='mt-4 grid grid-cols-2 gap-4'>
-							<div class='flex items-center'>
-								<input
-									id='valor-1'
-									type='radio'
-									name='valor'
-									value='1'
-									checked
-									class='radio-input hidden'
-								/>
-								<label
-									for='valor-1'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Introducido (Valor: 1)
-								</label>
+									<div class='flex items-center'>
+										<input
+											id='danio-infraestructura-2'
+											type='radio'
+											name='danio_infraestructura'
+											value='4'
+											class='radio-input hidden'
+										/>
+										<label
+											for='danio-infraestructura-2'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											No hay daño (Valor: 4)
+										</label>
+									</div>
+								</div>
 							</div>
-
-							<div class='flex items-center'>
-								<input
-									id='valor-2'
-									type='radio'
-									name='valor'
-									value='3'
-									class='radio-input hidden'
-								/>
-								<label
-									for='valor-2'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Nativo (Valor: 3)
-								</label>
-							</div>
-
-							<div class='flex items-center'>
-								<input
-									id='valor-3'
-									type='radio'
-									name='valor'
-									value='4'
-									class='radio-input hidden'
-								/>
-								<label
-									for='valor-3'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Mezquite (Valor: 4)
-								</label>
-							</div>
-						</div>
+						</Card>
 					</div>
-				</Card>
+					<!-- Paso 6 -->
+					<div class='step hidden' data-step='6'>
+						<Card
+							class='min-h-[275px] border-none'
+							heading='Valor'
+							subheading='Tipo de árbol y sus correspondientes valores'
+						>
+							<div class='text-muted-foreground'>
+								<div class='mt-4 grid grid-cols-2 gap-4'>
+									<div class='flex items-center'>
+										<input
+											id='valor-1'
+											type='radio'
+											name='valor'
+											value='1'
+											checked
+											class='radio-input hidden'
+										/>
+										<label
+											for='valor-1'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Introducido (Valor: 1)
+										</label>
+									</div>
 
-				<Card heading='Riesgo' subheading='Tipo de riesgo y sus correspondientes valores'>
-					<div class='text-muted-foreground'>
-						<div class='mt-4 grid grid-cols-2 gap-4'>
-							<div class='flex items-center'>
-								<input
-									id='riesgo-1'
-									type='radio'
-									name='riesgo'
-									value='2'
-									checked
-									class='radio-input hidden'
-								/>
-								<label
-									for='riesgo-1'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Riesgo a personas (Valor: 2)
-								</label>
-							</div>
+									<div class='flex items-center'>
+										<input
+											id='valor-2'
+											type='radio'
+											name='valor'
+											value='3'
+											class='radio-input hidden'
+										/>
+										<label
+											for='valor-2'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Nativo (Valor: 3)
+										</label>
+									</div>
 
-							<div class='flex items-center'>
-								<input
-									id='riesgo-2'
-									type='radio'
-									name='riesgo'
-									value='3'
-									class='radio-input hidden'
-								/>
-								<label
-									for='riesgo-2'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Riesgo a infraestructura (Valor: 3)
-								</label>
+									<div class='flex items-center'>
+										<input
+											id='valor-3'
+											type='radio'
+											name='valor'
+											value='4'
+											class='radio-input hidden'
+										/>
+										<label
+											for='valor-3'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Mezquite (Valor: 4)
+										</label>
+									</div>
+								</div>
 							</div>
-
-							<div class='flex items-center'>
-								<input
-									id='riesgo-3'
-									type='radio'
-									name='riesgo'
-									value='4'
-									class='radio-input hidden'
-								/>
-								<label
-									for='riesgo-3'
-									class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
-								>
-									Sin riesgo (Valor: 4)
-								</label>
-							</div>
-						</div>
+						</Card>
 					</div>
-				</Card>
+					<!-- Paso 7 -->
+					<div class='step hidden' data-step='7'>
+						<Card
+							class='min-h-[275px] border-none'
+							heading='Riesgo'
+							subheading='Tipo de riesgo y sus correspondientes valores'
+						>
+							<div class='text-muted-foreground'>
+								<div class='mt-4 grid grid-cols-2 gap-4'>
+									<div class='flex items-center'>
+										<input
+											id='riesgo-1'
+											type='radio'
+											name='riesgo'
+											value='2'
+											checked
+											class='radio-input hidden'
+										/>
+										<label
+											for='riesgo-1'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Riesgo a personas (Valor: 2)
+										</label>
+									</div>
 
-				<button
-					type='submit'
-					class='btn-primary focus:ring- mt-6 rounded border-2 border-gray-800 bg-white px-4 py-2 font-bold text-gray-950 transition-colors duration-300 hover:bg-gray-800 hover:text-gray-50 dark:border-gray-100 dark:bg-transparent dark:text-gray-100 dark:hover:bg-gray-100 dark:hover:text-gray-950'
-				>
-					Calcular Compensación
-				</button>
-			</form>
+									<div class='flex items-center'>
+										<input
+											id='riesgo-2'
+											type='radio'
+											name='riesgo'
+											value='3'
+											class='radio-input hidden'
+										/>
+										<label
+											for='riesgo-2'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Riesgo a infraestructura (Valor: 3)
+										</label>
+									</div>
+
+									<div class='flex items-center'>
+										<input
+											id='riesgo-3'
+											type='radio'
+											name='riesgo'
+											value='4'
+											class='radio-input hidden'
+										/>
+										<label
+											for='riesgo-3'
+											class='radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-200'
+										>
+											Sin riesgo (Valor: 4)
+										</label>
+									</div>
+								</div>
+							</div>
+						</Card>
+					</div>
+
+					<!-- Botones de navegación -->
+					<div class='flex justify-between'>
+						<button
+							type='button'
+							id='prevBtn'
+							class=' hidden rounded bg-transparent px-4 py-2 text-gray-700 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800 transition-all duration-300 border-2 border-gray-200'
+							>Retroceder</button
+						>
+						<button
+							type='button'
+							id='nextBtn'
+							class='btn-primary rounded border-2 border-gray-800 bg-white px-4 py-2 font-bold text-gray-950 transition-colors duration-300 hover:bg-gray-800 hover:text-gray-50 dark:border-gray-100 dark:bg-transparent dark:text-gray-100 dark:hover:bg-gray-100 dark:hover:text-gray-950'
+							>Siguiente</button
+						>
+						<button
+							type='submit'
+							id='calculateBtn'
+							class='btn-primary  hidden rounded border-2 border-gray-800 bg-white px-4 py-2 font-bold text-gray-950 transition-colors duration-300 hover:bg-gray-800 hover:text-gray-50 dark:border-gray-100 dark:bg-transparent dark:text-gray-100 dark:hover:bg-gray-100 dark:hover:text-gray-950'
+							>Calcular Compensación</button
+						>
+					</div>
+				</form>
+			</Card>
 		</Section>
 
-		<Card heading='Compensación' subheading='Resultado de la compensación' >
-			<div class='respuestas'></div>
-		</Card>
+		<Section title='Resultados'>
+			<Card heading='Compensación' subheading='Resultado de la compensación'>
+				<div class='mt-4 grid w-full grid-cols-2'>
+					<input type='radio' id='stats-tab' name='tab' class='hidden' checked />
+					<label
+						for='stats-tab'
+						class='inline-block w-full rounded-ss-md border-2 bg-gray-50 p-3 text-center transition hover:border-gray-800 hover:bg-gray-800 hover:text-gray-50 dark:bg-transparent dark:hover:border-gray-100 dark:hover:bg-gray-100 dark:hover:text-gray-950'
+					>
+						Resultado
+					</label>
 
+					<input type='radio' id='about-tab' name='tab' class='hidden' />
+					<label
+						for='about-tab'
+						class='inline-block w-full rounded-se-md border-2 bg-gray-50 p-3 text-center transition hover:border-gray-800 hover:bg-gray-800 hover:text-gray-50 dark:bg-transparent dark:hover:border-gray-100 dark:hover:bg-gray-100 dark:hover:text-gray-950'
+					>
+						Criterios
+					</label>
+
+					<!-- El contenido ocupa ambas columnas -->
+					<div
+						class='content col-span-2 flex min-h-[330px] flex-col items-center justify-center border-t-0 p-4'
+					>
+						<div class='respuesta'>
+							<div
+								class='response-error flex w-full flex-col items-center justify-center gap-4 p-8'
+							>
+								<Image
+									src='/images/bonfire-svgrepo-com.svg'
+									alt='Error'
+									width='150'
+									height='150'
+									class='rounded-full border-8 border-gray-200 dark:border-gray-100'
+								/>
+								<p class='text-center text-2xl font-bold text-gray-900 dark:text-gray-100'>
+									¡Ups! No has seleccionado ningún criterio.
+								</p>
+							</div>
+						</div>
+						<div class='criterios'>
+							<table class='text-muted-foreground'>
+								<thead>
+									<tr>
+										<th>Puntos</th>
+										<th>Cantidad de Árboles a Entregar</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>7 a 12</td>
+										<td>5</td>
+									</tr>
+									<tr>
+										<td>13 a 18</td>
+										<td>10</td>
+									</tr>
+									<tr>
+										<td>19 a 24</td>
+										<td>15</td>
+									</tr>
+									<tr>
+										<td>25 de 28</td>
+										<td>20</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</Card>
+		</Section>
 	</div>
 </PageLayout>
 
 <script>
-	const $campoRespuesta = document.querySelector('.respuestas') as HTMLDivElement
+	let currentStep = 1
+	const totalSteps = 7
+	const steps = document.querySelectorAll('.step') as NodeListOf<HTMLElement>
+	const progressBar = document.getElementById('progress-bar') as HTMLDivElement
+	const prevBtn = document.getElementById('prevBtn') as HTMLButtonElement
+	const nextBtn = document.getElementById('nextBtn') as HTMLButtonElement
+	const calculateBtn = document.getElementById('calculateBtn') as HTMLButtonElement
+	const respuestaContainer = document.querySelector('.respuesta') as HTMLDivElement
+
+	calculateBtn.addEventListener('click', (event) => {
+		// Mostrar el contenedor de respuesta si está oculto
+		if (respuestaContainer.classList.contains('hidden')) {
+			respuestaContainer.classList.remove('hidden')
+		}
+
+		// Desplazarse al contenedor con la clase 'respuesta'
+		respuestaContainer.scrollIntoView({ behavior: 'smooth' })
+	})
+
+	function showStep(step = 1) {
+		steps.forEach((el, index) => {
+			el.classList.toggle('hidden', index + 1 !== step)
+		})
+
+		// Maneja el estado de los botones
+		prevBtn.style.display = step === 1 ? 'none' : 'inline-block'
+		nextBtn.style.display = step === totalSteps ? 'none' : 'inline-block'
+		calculateBtn.style.display = step === totalSteps ? 'inline-block' : 'none' // Mostrar "Calcular Compensación" solo en el último paso
+
+		// Actualiza la barra de progreso
+		const progressPercentage = ((step - 1) / (totalSteps - 1)) * 100
+		progressBar.style.width = `${progressPercentage}%`
+	}
+
+	nextBtn?.addEventListener('click', () => {
+		if (currentStep < totalSteps) {
+			currentStep++
+			showStep(currentStep)
+		}
+	})
+
+	prevBtn?.addEventListener('click', () => {
+		if (currentStep > 1) {
+			currentStep--
+			showStep(currentStep)
+		}
+	})
+
+	// Mostrar el primer paso inicialmente
+	showStep(currentStep)
+
+	// FIN DE LA CALCULADORA
+
+	const $campoRespuesta = document.querySelector('.respuesta') as HTMLDivElement
 
 	document.getElementById('miFormulario')?.addEventListener('submit', function (event) {
-		// Previene el comportamiento por defecto del formulario
-		event.preventDefault();
+		event.preventDefault()
 
-		// Creamos un objeto para almacenar los valores
 		const selectedValues: Record<string, string> = {}
 
-		// Obtenemos todos los elementos de tipo radio
 		const radios = document.querySelectorAll('input[type="radio"]') as NodeListOf<HTMLInputElement>
 
-		// Iteramos sobre los radios para agregar los valores seleccionados al objeto
 		radios.forEach((radio, index) => {
 			if (radio.checked) {
 				selectedValues[radio.name] = radio.value
 			}
 		})
 
-		// Imprimir todos los valores seleccionados
-		$campoRespuesta.innerHTML = `
-				<p>Altura del árbol: ${selectedValues.altura}</p>
-				<p>Diámetro a la altura del pecho: ${selectedValues.diametro}</p>
-				<p>Estado estructural: ${selectedValues.estado_estructural}</p>
-				<p>Estado fitosanitario: ${selectedValues.estado_fitosanitario}</p>
-				<p>Daño a infraestructura: ${selectedValues.danio_infraestructura}</p>
-				<p>Valor: ${selectedValues.valor}</p>
-				<p>Riesgo: ${selectedValues.riesgo}</p>
-			`
+		const respuestaProcesada = (puntos: number) => {
+			const arboles = calcularArboles(puntos)
+
+			const respuestaHTML = `
+<div class='response-correct flex w-full flex-col items-center justify-center gap-0 p-8'>
+    <p class="text-2xl font-bold text-gray-900 dark:text-gray-100 text-center">
+        Con <span id="puntos" class="text-3xl font-semibold text-green-600 dark:text-green-400">0</span> puntos, Deberás Compensar con:
+    </p>
+    <p class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-4 text-center">
+        <span id="numero-arboles" class="text-3xl font-semibold text-green-600 dark:text-green-400">0</span> árboles
+    </p>
+    <p class="text-lg text-gray-900 dark:text-gray-100 mt-4 text-center">
+        ¡Gracias por tu compromiso con el medio ambiente! Tu acción ayuda a reforestar el planeta.
+    </p>
+</div>
+	`
+
+			$campoRespuesta.innerHTML = respuestaHTML
+
+			const puntosElemento = document.getElementById('puntos') as HTMLElement
+			const numeroArboles = document.getElementById('numero-arboles') as HTMLElement
+			incrementarNumero(puntosElemento, puntos)
+			incrementarNumero(numeroArboles, arboles)
+		}
+
+		const {
+			altura,
+			diametro,
+			estado_estructural,
+			estado_fitosanitario,
+			danio_infraestructura,
+			valor,
+			riesgo
+		} = selectedValues
+
+		const puntos =
+			+altura +
+			+diametro +
+			+estado_estructural +
+			+estado_fitosanitario +
+			+danio_infraestructura +
+			+valor +
+			+riesgo
+
+		respuestaProcesada(puntos)
 	})
+
+	function calcularArboles(puntos: number): number {
+		if (puntos >= 7 && puntos <= 12) {
+			return 5
+		} else if (puntos >= 13 && puntos <= 18) {
+			return 10
+		} else if (puntos >= 19 && puntos <= 24) {
+			return 15
+		} else if (puntos >= 25 && puntos <= 28) {
+			return 20
+		}
+		return 0 // Por defecto
+	}
+
+	function incrementarNumero(elemento: HTMLElement, valorFinal: number) {
+		let valorActual = 0 // Empezamos desde 0
+		const incremento = Math.ceil(valorFinal / 100) // Dividimos el valor final entre 100 para un incremento más lento
+		const intervalo = setInterval(() => {
+			valorActual += incremento // Aumentamos el valor
+			if (valorActual >= valorFinal) {
+				valorActual = valorFinal // Nos aseguramos de no sobrepasar el valor final
+				clearInterval(intervalo) // Detenemos el intervalo
+			}
+			// Actualizamos el texto del elemento
+			elemento.textContent = valorActual.toString()
+		}, 50) // Ejecutamos la función cada 50 ms para un efecto más lento
+	}
 </script>
 
 <style>
-	/* Estilos comunes */
 	.radio-input {
 		display: none;
 	}
@@ -547,17 +788,55 @@ const meta = {
 			border 0.3s;
 	}
 
-	/* Modo claro */
 	.radio-input:checked + .radio-label {
 		@apply border-gray-800 bg-gray-800 text-gray-50 dark:border-gray-800 dark:bg-white dark:text-gray-800;
 		color: #ffffff; /* Texto oscuro */
 	}
 
-	/* Efecto hover en modo claro */
 	.radio-label:hover {
 		background-color: #f3f4f6;
 		color: #000000;
 		border-color: #d1d5db;
-		@apply dark:border-gray-800 dark:bg-gray-800 dark:text-gray-50;
+		@apply dark:border-gray-50 dark:bg-transparent dark:text-gray-50;
+	}
+
+	table {
+		width: 100%; /* Asegura que la tabla ocupe el 100% del contenedor */
+		margin-top: 1rem;
+		border-collapse: collapse;
+		text-align: center;
+	}
+
+	table th,
+	table td {
+		padding: 0.5rem;
+		width: 50%; /* Asegura que cada columna ocupe el 50% */
+	}
+
+	table th {
+		text-align: center;
+
+		@apply border-b-2 border-gray-200 dark:border-gray-500 dark:text-gray-50;
+	}
+
+	/* Estilos para la pestaña activa */
+	input:checked + label {
+		@apply border-gray-800 bg-gray-800 text-gray-50  dark:border-gray-100 dark:bg-gray-100 dark:text-gray-800;
+	}
+
+	/* Mostrar solo la respuesta activa */
+	input#stats-tab:checked ~ .content .respuesta {
+		display: block;
+	}
+
+	input#about-tab:checked ~ .content .criterios {
+		display: block;
+	}
+
+	/* Ocultar inicialmente ambas secciones */
+	.respuesta,
+	.criterios {
+		display: none;
+		width: 100%;
 	}
 </style>

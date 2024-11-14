@@ -10,16 +10,17 @@ import { expressiveCodeOptions } from './src/site.config'
 import icon from 'astro-icon'
 
 
+import preact from '@astrojs/preact';
+
+
+
+
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.me',
-	integrations: [
-		expressiveCode(expressiveCodeOptions),
-		tailwind({
-			applyBaseStyles: false
-		}),
-		sitemap(),
-		mdx(),
-		icon()
-	]
+  site: 'https://example.me',
+
+  integrations: [expressiveCode(expressiveCodeOptions), tailwind({
+      applyBaseStyles: false
+      }), sitemap(), mdx(), icon(), preact()],
+
 })
