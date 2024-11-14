@@ -20,8 +20,32 @@ const {
 
 <html lang={siteConfig.lang} class=''>
 	<head>
-		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
 		<ViewTransitions />
+		<script>
+			document.addEventListener('astro:page-load', () => {
+				if (typeof window !== 'undefined') {
+					const storedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null
+
+					// Aplicar el tema guardado en el DOM antes de renderizar
+					if (storedTheme) {
+						document.documentElement.classList.add(storedTheme) // Agregar el tema al DOM
+						setTheme(storedTheme) // Establecer el estado
+					} else {
+						document.documentElement.classList.add('light') // Establecer modo claro por defecto
+						setTheme('light')
+					}
+				}
+
+				function setTheme(theme: 'light' | 'dark') {
+					if (theme === 'dark') {
+						document.documentElement.classList.add('dark')
+					} else {
+						document.documentElement.classList.remove('dark')
+					}
+				}
+			})
+		</script>
+		<BaseHead articleDate={articleDate} description={description} ogImage={ogImage} title={title} />
 	</head>
 
 	<body class='flex justify-center bg-background'>
