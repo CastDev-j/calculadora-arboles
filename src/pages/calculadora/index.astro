@@ -7,8 +7,8 @@ import PageLayout from '@/layouts/BaseLayout.astro'
 import Image from 'astro/components/Image.astro'
 
 const meta = {
-	description: "Calculadora de compensación de árboles",
-	title: 'EcoCompensa | Calculadora',
+	description: 'Calculadora de compensación de árboles',
+	title: 'EcoCompensa | Calculadora'
 }
 ---
 
@@ -529,7 +529,7 @@ const meta = {
 						<button
 							type='button'
 							id='prevBtn'
-							class=' hidden rounded bg-transparent px-4 py-2 text-gray-700 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800 transition-all duration-300 border-2 border-gray-200'
+							class='hidden rounded border-2 border-gray-200 bg-transparent px-4 py-2 text-gray-700 transition-all duration-300 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-800'
 							>Retroceder</button
 						>
 						<button
@@ -541,7 +541,7 @@ const meta = {
 						<button
 							type='submit'
 							id='calculateBtn'
-							class='btn-primary  hidden rounded border-2 border-gray-800 bg-white px-4 py-2 font-bold text-gray-950 transition-colors duration-300 hover:bg-gray-800 hover:text-gray-50 dark:border-gray-100 dark:bg-transparent dark:text-gray-100 dark:hover:bg-gray-100 dark:hover:text-gray-950'
+							class='btn-primary hidden rounded border-2 border-gray-800 bg-white px-4 py-2 font-bold text-gray-950 transition-colors duration-300 hover:bg-gray-800 hover:text-gray-50 dark:border-gray-100 dark:bg-transparent dark:text-gray-100 dark:hover:bg-gray-100 dark:hover:text-gray-950'
 							>Calcular Compensación</button
 						>
 					</div>
@@ -624,78 +624,81 @@ const meta = {
 </PageLayout>
 
 <script>
-	let currentStep = 1
-	const totalSteps = 7
-	const steps = document.querySelectorAll('.step') as NodeListOf<HTMLElement>
-	const progressBar = document.getElementById('progress-bar') as HTMLDivElement
-	const prevBtn = document.getElementById('prevBtn') as HTMLButtonElement
-	const nextBtn = document.getElementById('nextBtn') as HTMLButtonElement
-	const calculateBtn = document.getElementById('calculateBtn') as HTMLButtonElement
-	const respuestaContainer = document.querySelector('.respuesta') as HTMLDivElement
+	document.addEventListener('astro:page-load', () => {
+		let currentStep = 1
+		const totalSteps = 7
+		const steps = document.querySelectorAll('.step') as NodeListOf<HTMLElement>
+		const progressBar = document.getElementById('progress-bar') as HTMLDivElement
+		const prevBtn = document.getElementById('prevBtn') as HTMLButtonElement
+		const nextBtn = document.getElementById('nextBtn') as HTMLButtonElement
+		const calculateBtn = document.getElementById('calculateBtn') as HTMLButtonElement
+		const respuestaContainer = document.querySelector('.respuesta') as HTMLDivElement
 
-	calculateBtn.addEventListener('click', (event) => {
-		// Mostrar el contenedor de respuesta si está oculto
-		if (respuestaContainer.classList.contains('hidden')) {
-			respuestaContainer.classList.remove('hidden')
-		}
+		calculateBtn.addEventListener('click', (event) => {
+			// Mostrar el contenedor de respuesta si está oculto
+			if (respuestaContainer.classList.contains('hidden')) {
+				respuestaContainer.classList.remove('hidden')
+			}
 
-		// Desplazarse al contenedor con la clase 'respuesta'
-		respuestaContainer.scrollIntoView({ behavior: 'smooth' })
-	})
-
-	function showStep(step = 1) {
-		steps.forEach((el, index) => {
-			el.classList.toggle('hidden', index + 1 !== step)
+			// Desplazarse al contenedor con la clase 'respuesta'
+			respuestaContainer.scrollIntoView({ behavior: 'smooth' })
 		})
 
-		// Maneja el estado de los botones
-		prevBtn.style.display = step === 1 ? 'none' : 'inline-block'
-		nextBtn.style.display = step === totalSteps ? 'none' : 'inline-block'
-		calculateBtn.style.display = step === totalSteps ? 'inline-block' : 'none' // Mostrar "Calcular Compensación" solo en el último paso
+		function showStep(step = 1) {
+			steps.forEach((el, index) => {
+				el.classList.toggle('hidden', index + 1 !== step)
+			})
 
-		// Actualiza la barra de progreso
-		const progressPercentage = ((step - 1) / (totalSteps - 1)) * 100
-		progressBar.style.width = `${progressPercentage}%`
-	}
+			// Maneja el estado de los botones
+			prevBtn.style.display = step === 1 ? 'none' : 'inline-block'
+			nextBtn.style.display = step === totalSteps ? 'none' : 'inline-block'
+			calculateBtn.style.display = step === totalSteps ? 'inline-block' : 'none' // Mostrar "Calcular Compensación" solo en el último paso
 
-	nextBtn?.addEventListener('click', () => {
-		if (currentStep < totalSteps) {
-			currentStep++
-			showStep(currentStep)
+			// Actualiza la barra de progreso
+			const progressPercentage = ((step - 1) / (totalSteps - 1)) * 100
+			progressBar.style.width = `${progressPercentage}%`
 		}
-	})
 
-	prevBtn?.addEventListener('click', () => {
-		if (currentStep > 1) {
-			currentStep--
-			showStep(currentStep)
-		}
-	})
-
-	// Mostrar el primer paso inicialmente
-	showStep(currentStep)
-
-	// FIN DE LA CALCULADORA
-
-	const $campoRespuesta = document.querySelector('.respuesta') as HTMLDivElement
-
-	document.getElementById('miFormulario')?.addEventListener('submit', function (event) {
-		event.preventDefault()
-
-		const selectedValues: Record<string, string> = {}
-
-		const radios = document.querySelectorAll('input[type="radio"]') as NodeListOf<HTMLInputElement>
-
-		radios.forEach((radio, index) => {
-			if (radio.checked) {
-				selectedValues[radio.name] = radio.value
+		nextBtn?.addEventListener('click', () => {
+			if (currentStep < totalSteps) {
+				currentStep++
+				showStep(currentStep)
 			}
 		})
 
-		const respuestaProcesada = (puntos: number) => {
-			const arboles = calcularArboles(puntos)
+		prevBtn?.addEventListener('click', () => {
+			if (currentStep > 1) {
+				currentStep--
+				showStep(currentStep)
+			}
+		})
 
-			const respuestaHTML = `
+		// Mostrar el primer paso inicialmente
+		showStep(currentStep)
+
+		// FIN DE LA CALCULADORA
+
+		const $campoRespuesta = document.querySelector('.respuesta') as HTMLDivElement
+
+		document.getElementById('miFormulario')?.addEventListener('submit', function (event) {
+			event.preventDefault()
+
+			const selectedValues: Record<string, string> = {}
+
+			const radios = document.querySelectorAll(
+				'input[type="radio"]'
+			) as NodeListOf<HTMLInputElement>
+
+			radios.forEach((radio, index) => {
+				if (radio.checked) {
+					selectedValues[radio.name] = radio.value
+				}
+			})
+
+			const respuestaProcesada = (puntos: number) => {
+				const arboles = calcularArboles(puntos)
+
+				const respuestaHTML = `
 <div class='response-correct flex w-full flex-col items-center justify-center gap-0 p-8'>
     <p class="text-2xl font-bold text-gray-900 dark:text-gray-100 text-center">
         Con <span id="puntos" class="text-3xl font-semibold text-green-600 dark:text-green-400">0</span> puntos, Deberás Compensar con:
@@ -709,64 +712,65 @@ const meta = {
 </div>
 	`
 
-			$campoRespuesta.innerHTML = respuestaHTML
+				$campoRespuesta.innerHTML = respuestaHTML
 
-			const puntosElemento = document.getElementById('puntos') as HTMLElement
-			const numeroArboles = document.getElementById('numero-arboles') as HTMLElement
-			setTimeout(() => {
-				incrementarNumero(puntosElemento, puntos)
-				incrementarNumero(numeroArboles, arboles)
-			}, 400)
-		}
-
-		const {
-			altura,
-			diametro,
-			estado_estructural,
-			estado_fitosanitario,
-			danio_infraestructura,
-			valor,
-			riesgo
-		} = selectedValues
-
-		const puntos =
-			+altura +
-			+diametro +
-			+estado_estructural +
-			+estado_fitosanitario +
-			+danio_infraestructura +
-			+valor +
-			+riesgo
-
-		respuestaProcesada(puntos)
-	})
-
-	function calcularArboles(puntos: number): number {
-		if (puntos >= 7 && puntos <= 12) {
-			return 5
-		} else if (puntos >= 13 && puntos <= 18) {
-			return 10
-		} else if (puntos >= 19 && puntos <= 24) {
-			return 15
-		} else if (puntos >= 25 && puntos <= 28) {
-			return 20
-		}
-		return 0 // Por defecto
-	}
-
-	function incrementarNumero(elemento: HTMLElement, valorFinal: number) {
-		let valorActual = 0 // Empezamos desde 0
-		const incremento = Math.ceil(valorFinal / 100) // Dividimos el valor final entre 100 para un incremento más lento
-		const intervalo = setInterval(() => {
-			valorActual += incremento // Aumentamos el valor
-			if (valorActual >= valorFinal) {
-				valorActual = valorFinal // Nos aseguramos de no sobrepasar el valor final
-				clearInterval(intervalo) // Detenemos el intervalo
+				const puntosElemento = document.getElementById('puntos') as HTMLElement
+				const numeroArboles = document.getElementById('numero-arboles') as HTMLElement
+				setTimeout(() => {
+					incrementarNumero(puntosElemento, puntos)
+					incrementarNumero(numeroArboles, arboles)
+				}, 400)
 			}
-			// Actualizamos el texto del elemento
-			elemento.textContent = valorActual.toString()
-		}, 50) // Ejecutamos la función cada 50 ms para un efecto más lento
-	}
+
+			const {
+				altura,
+				diametro,
+				estado_estructural,
+				estado_fitosanitario,
+				danio_infraestructura,
+				valor,
+				riesgo
+			} = selectedValues
+
+			const puntos =
+				+altura +
+				+diametro +
+				+estado_estructural +
+				+estado_fitosanitario +
+				+danio_infraestructura +
+				+valor +
+				+riesgo
+
+			respuestaProcesada(puntos)
+		})
+
+		function calcularArboles(puntos: number): number {
+			if (puntos >= 7 && puntos <= 12) {
+				return 5
+			} else if (puntos >= 13 && puntos <= 18) {
+				return 10
+			} else if (puntos >= 19 && puntos <= 24) {
+				return 15
+			} else if (puntos >= 25 && puntos <= 28) {
+				return 20
+			}
+			return 0 // Por defecto
+		}
+
+		function incrementarNumero(elemento: HTMLElement, valorFinal: number) {
+			let valorActual = 0 // Empezamos desde 0
+			const incremento = Math.ceil(valorFinal / 100) // Dividimos el valor final entre 100 para un incremento más lento
+			const intervalo = setInterval(() => {
+				valorActual += incremento // Aumentamos el valor
+				if (valorActual >= valorFinal) {
+					valorActual = valorFinal // Nos aseguramos de no sobrepasar el valor final
+					clearInterval(intervalo) // Detenemos el intervalo
+				}
+				// Actualizamos el texto del elemento
+				elemento.textContent = valorActual.toString()
+			}, 50) // Ejecutamos la función cada 50 ms para un efecto más lento
+		}
+	})
 </script>
 
 <style>

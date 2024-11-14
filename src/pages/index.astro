@@ -7,6 +7,7 @@ import SkillLayout from '../components/SkillLayout.astro'
 
 import { Image } from 'astro:assets'
 import astro from '../assets/about-astro.svg'
+import { ViewTransitions } from 'astro:transitions'
 
 const languages = ['HTML', 'CSS', 'TypeScript']
 const frontend = ['Tailwind CSS', 'Preact', 'Astro', 'HTML', 'CSS', 'TypeScript', 'JavaScript', 'Markdown']
@@ -21,6 +22,7 @@ const meta = {
 ---
 
 <PageLayout {meta}>
+
 	<div class='flex w-full flex-col gap-y-10'>
 		<section class='flex flex-col items-center gap-y-7'>
 			<Image
