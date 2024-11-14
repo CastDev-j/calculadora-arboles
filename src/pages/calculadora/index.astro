@@ -7,8 +7,8 @@ import PageLayout from '@/layouts/BaseLayout.astro'
 import Image from 'astro/components/Image.astro'
 
 const meta = {
-	description: "A list of all the topics I've written about in my posts",
-	title: 'All Tags'
+	description: "Calculadora de compensación de árboles",
+	title: 'EcoCompensa | Calculadora',
 }
 ---
 
@@ -713,8 +713,10 @@ const meta = {
 
 			const puntosElemento = document.getElementById('puntos') as HTMLElement
 			const numeroArboles = document.getElementById('numero-arboles') as HTMLElement
-			incrementarNumero(puntosElemento, puntos)
-			incrementarNumero(numeroArboles, arboles)
+			setTimeout(() => {
+				incrementarNumero(puntosElemento, puntos)
+				incrementarNumero(numeroArboles, arboles)
+			}, 400)
 		}
 
 		const {

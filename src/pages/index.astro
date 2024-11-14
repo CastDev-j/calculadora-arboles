@@ -12,9 +12,15 @@ const languages = ['HTML', 'CSS', 'TypeScript']
 const frontend = ['Tailwind CSS', 'Preact', 'Astro', 'HTML', 'CSS', 'TypeScript', 'JavaScript', 'Markdown']
 const backend = ['Node.js', 'TypeScript', 'Astro']
 const others = ['Markdown', 'Git', 'VSCode', 'npm', 'Cloudflare']
+
+const meta = {
+	description: "EcoCompensa es un programa diseñado para determinar la compensación por el retiro de árboles. Su objetivo es proporcionar una evaluación precisa del árbol o de los árboles afectados y calcular la cantidad de árboles que deben compensarse o, en su defecto, la cantidad económica necesaria para cumplir con dicha compensación.",
+	title: 'EcoCompensa | Inicio',
+}
+
 ---
 
-<PageLayout meta={{ title: 'Home' }}>
+<PageLayout {meta}>
 	<div class='flex w-full flex-col gap-y-10'>
 		<section class='flex flex-col items-center gap-y-7'>
 			<Image
