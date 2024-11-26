@@ -207,57 +207,56 @@ const formSteps = [
 								</p>
 							</div>
 						</div>
-						<div class="criterios">
-							<table class="table">
+						<div class='criterios'>
+							<table class='table'>
 								<!-- Encabezado -->
-								<thead class="table-head">
+								<thead class='table-head'>
 									<tr>
-										<th class="table-cell">Puntos</th>
-										<th class="table-cell">Cantidad de Árboles a Entregar</th>
-										<th class="table-cell">Altura (m)</th>
-										<th class="table-cell">Diámetro del Tronco (m)</th>
-										<th class="table-cell">Diámetro de Copa (m)</th>
-										<th class="table-cell">Tamaño de Cepellón (m)</th>
+										<th class='table-cell'>Puntos</th>
+										<th class='table-cell'>Cantidad de Árboles a Entregar</th>
+										<th class='table-cell'>Altura (m)</th>
+										<th class='table-cell'>Diámetro del Tronco (m)</th>
+										<th class='table-cell'>Diámetro de Copa (m)</th>
+										<th class='table-cell'>Tamaño de Cepellón (m)</th>
 									</tr>
 								</thead>
 								<!-- Cuerpo -->
 								<tbody>
-									<tr class="table-row-odd">
-										<td class="table-cell">7 a 12</td>
-										<td class="table-cell">2</td>
-										<td class="table-cell">4</td>
-										<td class="table-cell">0.06</td>
-										<td class="table-cell">0.8</td>
-										<td class="table-cell">0.60 x 0.60 x 0.45</td>
+									<tr class='table-row-odd'>
+										<td class='table-cell'>7 a 12</td>
+										<td class='table-cell'>2</td>
+										<td class='table-cell'>4</td>
+										<td class='table-cell'>0.06</td>
+										<td class='table-cell'>0.8</td>
+										<td class='table-cell'>0.60 x 0.60 x 0.45</td>
 									</tr>
-									<tr class="table-row-even">
-										<td class="table-cell">13 a 18</td>
-										<td class="table-cell">4</td>
-										<td class="table-cell">5</td>
-										<td class="table-cell">0.075</td>
-										<td class="table-cell">1.0</td>
-										<td class="table-cell">0.75 x 0.75 x 0.56</td>
+									<tr class='table-row-even'>
+										<td class='table-cell'>13 a 18</td>
+										<td class='table-cell'>4</td>
+										<td class='table-cell'>5</td>
+										<td class='table-cell'>0.075</td>
+										<td class='table-cell'>1.0</td>
+										<td class='table-cell'>0.75 x 0.75 x 0.56</td>
 									</tr>
-									<tr class="table-row-odd">
-										<td class="table-cell">19 a 24</td>
-										<td class="table-cell">8</td>
-										<td class="table-cell">6</td>
-										<td class="table-cell">0.09</td>
-										<td class="table-cell">1.2</td>
-										<td class="table-cell">0.90 x 0.90 x 0.67</td>
+									<tr class='table-row-odd'>
+										<td class='table-cell'>19 a 24</td>
+										<td class='table-cell'>8</td>
+										<td class='table-cell'>6</td>
+										<td class='table-cell'>0.09</td>
+										<td class='table-cell'>1.2</td>
+										<td class='table-cell'>0.90 x 0.90 x 0.67</td>
 									</tr>
-									<tr class="table-row-even">
-										<td class="table-cell">25 a 28</td>
-										<td class="table-cell">16</td>
-										<td class="table-cell">8</td>
-										<td class="table-cell">0.12</td>
-										<td class="table-cell">1.6</td>
-										<td class="table-cell">1.20 x 1.20 x 0.90</td>
+									<tr class='table-row-even'>
+										<td class='table-cell'>25 a 28</td>
+										<td class='table-cell'>16</td>
+										<td class='table-cell'>8</td>
+										<td class='table-cell'>0.12</td>
+										<td class='table-cell'>1.6</td>
+										<td class='table-cell'>1.20 x 1.20 x 0.90</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
-						
 					</div>
 				</div>
 			</Card>
@@ -341,22 +340,27 @@ const formSteps = [
 			const respuestaProcesada = (puntos: number) => {
 				const arboles = calcularArboles(puntos)
 
+				// Mensaje de respuesta con mayor detalle
 				const respuestaHTML = `
-<div class='response-correct flex w-full flex-col items-center justify-center gap-0 p-8'>
+<div class='response-correct flex w-full flex-col items-center justify-center gap-4 p-8'>
 	<p class="text-2xl font-bold text-gray-900 dark:text-gray-100 text-center">
-		Con <span id="puntos" class="text-3xl font-semibold text-green-600 dark:text-green-400">0</span> puntos, Deberás Compensar con:
+		Con <span id="puntos" class="text-3xl font-semibold text-green-600 dark:text-green-400">${puntos}</span> puntos, deberás compensar con:
 	</p>
 	<p class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-4 text-center">
-		<span id="numero-arboles" class="text-3xl font-semibold text-green-600 dark:text-green-400">0</span> árboles
+		<span id="numero-arboles" class="text-3xl font-semibold text-green-600 dark:text-green-400">${arboles}</span> árboles
 	</p>
 	<p class="text-lg text-gray-900 dark:text-gray-100 mt-4 text-center">
-		¡Gracias por tu compromiso con el medio ambiente! Tu acción ayuda a reforestar el planeta.
+		¡Gracias por hacer la diferencia! Tu acción tiene un impacto positivo en el planeta. 🌱🌍
+	</p>
+		<p class="text-sm text-green-600 mt-4 text-center">
+		Para ver los detalles específicos de la reforestación, consulta la tabla en la pestaña de "Criterios".
 	</p>
 </div>
 	`
 
 				$campoRespuesta.innerHTML = respuestaHTML
 
+				// Animar el incremento de puntos y árboles
 				const puntosElemento = document.getElementById('puntos') as HTMLElement
 				const numeroArboles = document.getElementById('numero-arboles') as HTMLElement
 				setTimeout(() => {
@@ -370,13 +374,13 @@ const formSteps = [
 
 		function calcularArboles(puntos: number): number {
 			if (puntos >= 7 && puntos <= 12) {
-				return 5
+				return 2 // Según la tabla
 			} else if (puntos >= 13 && puntos <= 18) {
-				return 10
+				return 4 // Según la tabla
 			} else if (puntos >= 19 && puntos <= 24) {
-				return 15
+				return 8 // Según la tabla
 			} else if (puntos >= 25 && puntos <= 28) {
-				return 20
+				return 16 // Según la tabla
 			}
 			return 0 // Por defecto
 		}
@@ -403,7 +407,7 @@ const formSteps = [
 	}
 
 	.table {
-		@apply w-full text-sm text-gray-700 mt-6 dark:text-gray-200;
+		@apply mt-6 w-full text-sm text-gray-700 dark:text-gray-200;
 	}
 
 	.table-cell {
@@ -413,7 +417,7 @@ const formSteps = [
 	.table-head {
 		@apply border-b-2 text-xs font-bold text-gray-900 dark:bg-transparent dark:text-gray-100;
 	}
-	
+
 	input:checked + label {
 		@apply border-gray-800 bg-gray-800 text-gray-50  dark:border-gray-100 dark:bg-gray-100 dark:text-gray-800;
 	}
