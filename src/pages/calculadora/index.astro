@@ -347,7 +347,7 @@ const formSteps = [
 		Con <span id="puntos" class="text-3xl font-semibold text-green-600 dark:text-green-400">${puntos}</span> puntos, deberás compensar con:
 	</p>
 	<p class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-4 text-center">
-		<span id="numero-arboles" class="text-3xl font-semibold text-green-600 dark:text-green-400">${arboles}</span> árboles
+		<span id="numero-arboles" class="text-3xl font-semibold text-green-600 dark:text-green-400">0</span> árboles
 	</p>
 	<p class="text-lg text-gray-900 dark:text-gray-100 mt-4 text-center">
 		¡Gracias por hacer la diferencia! Tu acción tiene un impacto positivo en el planeta. 🌱🌍
@@ -381,6 +381,8 @@ const formSteps = [
 				return 8 // Según la tabla
 			} else if (puntos >= 25 && puntos <= 28) {
 				return 16 // Según la tabla
+			} else if (puntos > 28) {
+				return 20 // Por defecto
 			}
 			return 0 // Por defecto
 		}
