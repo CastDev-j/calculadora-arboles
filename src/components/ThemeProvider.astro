@@ -1,42 +1,29 @@
 <script is:inline>
-	const lightModePref = window.matchMedia('(prefers-color-scheme: light)')
-
-	// Get user preference from local storage or from browser preference
-	function getUserPref() {
-		const storedTheme = localStorage.getItem('theme') ?? undefined
-		return storedTheme || (lightModePref.matches ? 'light' : 'dark')
+	const theme = (() => {
+	  if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+		return localStorage.getItem('theme');
+	  }
+	  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+		return 'dark';
+	  }
+		return 'light';
+	})();
+  
+	if (theme === 'light') {
+	  document.documentElement.classList.remove('dark');
+	} else {
+	  document.documentElement.classList.add('dark');
 	}
-
-	function setTheme(newTheme) {
-		if (newTheme !== 'light' && newTheme !== 'dark') {
-			return console.log(`Invalid theme value '${newTheme}' received. Expected 'light' or 'dark'.`)
-		}
-
-		localStorage.setItem('theme', newTheme)
-
-		const root = document.documentElement
-
-		// if current dark theme and new theme is dark, return
-		if (newTheme === 'dark' && root.classList.contains('dark')) {
-			return
-		} else if (newTheme === 'light' && !root.classList.contains('dark')) {
-			return
-		}
-
-		root.classList.toggle('dark')
+  
+	window.localStorage.setItem('theme', theme);
+  
+	const handleToggleClick = () => {
+	  const element = document.documentElement;
+	  element.classList.toggle("dark");
+  
+	  const isDark = element.classList.contains("dark");
+	  localStorage.setItem("theme", isDark ? "dark" : "light");
 	}
-
-	// Initial Setup
-	setTheme(getUserPref())
-
-	// View Transitions hook to restore theme
-	document.addEventListener('astro:after-swap', () => setTheme(getUserPref()))
-
-	// Listen for theme-change custom event
-	document.addEventListener('theme-change', (e) => {
-		setTheme(e.detail.theme)
-	})
-
-	// Listen for prefers-color-scheme change
-	lightModePref.addEventListener('change', (e) => setTheme(e.matches ? 'light' : 'dark'))
-</script>
+  
+	document.getElementById("themeToggle").addEventListener("click", handleToggleClick);
+  </script>

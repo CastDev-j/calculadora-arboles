@@ -1,0 +1,77 @@
+---
+import Card from '../Card.astro'
+
+interface Props {
+	data: {
+		step: number
+		title: string
+		subtitle: string
+		options: {
+			label: string
+			value: string
+		}[]
+	}
+}
+
+const { data } = Astro.props
+
+const { step, title, subtitle, options } = data
+---
+
+<div class='step hidden' data-step={step}>
+	<Card class='min-h-[275px] border-none' heading={title} subheading={subtitle}>
+		<div class='mt-4 grid grid-cols-2 gap-4'>
+			{
+				options.map((option, index) => {
+					const identifier = title.toLowerCase().replace(' ', '-') + '-' + index + 1;
+					const { label, value } = option;
+					return (
+						<>
+							<input
+								id={identifier}
+								type='radio'
+								name={title}
+								value={value}
+								checked={index === 0}
+								class={`radio-input hidden input-three`}
+							/>
+							<label
+								for={identifier}
+								class={`radio-label inline-block cursor-pointer border-2 border-transparent px-4 py-2 text-center transition-all duration-300`}
+							>
+								{label}
+							</label>
+						</>
+					)
+				})
+			}
+		</div>
+	</Card>
+</div>
+
+<script>
+
+
+</script>
+
+<style>
+	.radio-input {
+		display: none;
+	}
+
+	.radio-label {
+        @apply flex text-center flex-col px-2 py-1 border-gray-300 cursor-pointer text-base font-medium rounded transition-all duration-300;
+	}
+
+	.radio-input:checked + .radio-label {
+		@apply border-gray-800 bg-gray-800 text-gray-50 dark:border-gray-800 dark:bg-white dark:text-gray-800;
+		color: #ffffff; /* Texto oscuro */
+	}
+
+	.radio-label:hover {
+		background-color: #f3f4f6;
+		color: #000000;
+		border-color: #d1d5db;
+		@apply dark:border-gray-50 dark:bg-transparent dark:text-gray-50;
+	}
+</style>
