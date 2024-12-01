@@ -311,17 +311,25 @@ const meta = {
 				<table class='ml-4 text-muted-foreground'>
 					<thead>
 						<tr>
-							<th>Daño</th>
+							<th>Años</th>
 							<th>Valor</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>Si hay daño</td>
+							<td>Hasta 5 años</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>6 a 20 años</td>
 							<td>2</td>
 						</tr>
 						<tr>
-							<td>No hay daño</td>
+							<td>21 a 40 años</td>
+							<td>3</td>
+						</tr>
+						<tr>
+							<td>Más de 40 años</td>
 							<td>4</td>
 						</tr>
 					</tbody>
@@ -338,21 +346,25 @@ const meta = {
 				<table class='ml-4 text-muted-foreground'>
 					<thead>
 						<tr>
-							<th>Tipo</th>
+							<th>Árboles</th>
 							<th>Valor</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>Introducido</td>
+							<td>Menos de 5</td>
 							<td>1</td>
 						</tr>
 						<tr>
-							<td>Nativo</td>
+							<td>5 a 19</td>
+							<td>2</td>
+						</tr>
+						<tr>
+							<td>20 a 30</td>
 							<td>3</td>
 						</tr>
 						<tr>
-							<td>Mezquite</td>
+							<td>Más de 30</td>
 							<td>4</td>
 						</tr>
 					</tbody>
@@ -369,21 +381,25 @@ const meta = {
 				<table class='ml-4 text-muted-foreground'>
 					<thead>
 						<tr>
-							<th>Tipo de riesgo</th>
-							<th>Valor</th>
+							<th>Valor (Factor)</th>
+							<th>Valor (Ponderación)</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>Riesgo a personas</td>
+							<td>Ninguno</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>Uno o Dos Valores</td>
 							<td>2</td>
 						</tr>
 						<tr>
-							<td>Riesgo a infraestructura</td>
+							<td>Tres Valores</td>
 							<td>3</td>
 						</tr>
 						<tr>
-							<td>Sin riesgo</td>
+							<td>Cuatro de los Valores</td>
 							<td>4</td>
 						</tr>
 					</tbody>
