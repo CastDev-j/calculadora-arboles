@@ -10,19 +10,27 @@ import astro from '../assets/about-astro.svg'
 import { ViewTransitions } from 'astro:transitions'
 
 const languages = ['HTML', 'CSS', 'TypeScript']
-const frontend = ['Tailwind CSS', 'Preact', 'Astro', 'HTML', 'CSS', 'TypeScript', 'JavaScript', 'Markdown']
+const frontend = [
+	'Tailwind CSS',
+	'Preact',
+	'Astro',
+	'HTML',
+	'CSS',
+	'TypeScript',
+	'JavaScript',
+	'Markdown'
+]
 const backend = ['Node.js', 'TypeScript', 'Astro']
 const others = ['Markdown', 'Git', 'VSCode', 'npm', 'Cloudflare']
 
 const meta = {
-	description: "EcoCompensa es un programa diseñado para determinar la compensación por el retiro de árboles. Su objetivo es proporcionar una evaluación precisa del árbol o de los árboles afectados y calcular la cantidad de árboles que deben compensarse o, en su defecto, la cantidad económica necesaria para cumplir con dicha compensación.",
-	title: 'EcoCompensa | Inicio',
+	description:
+		'EcoCompensa es un programa diseñado para determinar la compensación por el retiro de árboles. Su objetivo es proporcionar una evaluación precisa del árbol o de los árboles afectados y calcular la cantidad de árboles que deben compensarse o, en su defecto, la cantidad económica necesaria para cumplir con dicha compensación.',
+	title: 'EcoCompensa | Inicio'
 }
-
 ---
 
 <PageLayout {meta}>
-
 	<div class='flex w-full flex-col gap-y-10'>
 		<section class='flex flex-col items-center gap-y-7'>
 			<Image
@@ -115,7 +123,7 @@ const meta = {
 			/>
 			<Card
 				heading='Altura del árbol'
-				subheading='Intervalo de valores y sus correspondientes valores'
+				subheading='Se refiere a la altura total que alcanza el árbol en metros.'
 				imagePath='/src/assets/bonfire-svgrepo-com.svg'
 				altText='Altura del árbol'
 				imageClass='h-12 w-auto md:-left-16'
@@ -149,10 +157,10 @@ const meta = {
 			</Card>
 
 			<Card
-				heading='Diámetro a la altura del pecho'
-				subheading='Intervalo de valores y sus correspondientes valores'
+				heading='Diámetro del tronco'
+				subheading='Mide el grosor del tronco a 1.30 m desde el suelo.'
 				imagePath='/src/assets/cactus-svgrepo-com.svg'
-				altText='Diámetro a la altura del pecho'
+				altText='Diámetro del tronco'
 				imageClass='h-12 w-auto md:-left-16'
 			>
 				<table class='ml-4 text-muted-foreground'>
@@ -184,10 +192,10 @@ const meta = {
 			</Card>
 
 			<Card
-				heading='Estado estructural'
-				subheading='Estado y sus correspondientes valores'
+				heading='Estructura'
+				subheading='Evalúa la condición estructural del árbol, indicando su estabilidad y seguridad.'
 				imagePath='/src/assets/camel-svgrepo-com.svg'
-				altText='Estado estructural'
+				altText='Estructura'
 				imageClass='h-12 w-auto md:-left-16'
 			>
 				<table class='ml-4 text-muted-foreground'>
@@ -199,19 +207,39 @@ const meta = {
 					</thead>
 					<tbody>
 						<tr>
-							<td>Irrecuperable</td>
+							<td>
+								<p>Irrecuperable</p>
+								<p class='font-light text-muted-foreground p-2'>
+									La estructura del árbol está gravemente dañada, sin posibilidad de ser restaurada.
+								</p>
+							</td>
 							<td>1</td>
 						</tr>
 						<tr>
-							<td>Susceptible de mejora</td>
+							<td>
+								<p>Susceptible de mejora</p>
+								<p class='font-light text-muted-foreground p-2'>
+									El árbol tiene defectos estructurales, pero podrían corregirse con intervenciones.
+								</p>
+							</td>
 							<td>2</td>
 						</tr>
 						<tr>
-							<td>Buena</td>
+							<td>
+								<p>Buena</p>
+								<p class='font-light text-muted-foreground p-2'>
+									La estructura es estable y adecuada, sin mayores problemas.
+								</p>
+							</td>
 							<td>3</td>
 						</tr>
 						<tr>
-							<td>Muy buena</td>
+							<td>
+								<p>Muy buena</p>
+								<p class='font-light text-muted-foreground p-2'>
+									La estructura es excelente, sin necesidad de intervención.
+								</p>
+							</td>
 							<td>4</td>
 						</tr>
 					</tbody>
@@ -219,10 +247,10 @@ const meta = {
 			</Card>
 
 			<Card
-				heading='Estado fitosanitario'
-				subheading='Estado y sus correspondientes valores'
+				heading='Condición general del árbol'
+				subheading='Valora el estado de salud general, como signos de declive o vigor.'
 				imagePath='/src/assets/seagull-svgrepo-com.svg'
-				altText='Estado fitosanitario'
+				altText='Condición general del árbol'
 				imageClass='h-12 w-auto md:-left-16'
 			>
 				<table class='ml-4 text-muted-foreground'>
@@ -234,19 +262,39 @@ const meta = {
 					</thead>
 					<tbody>
 						<tr>
-							<td>Irrecuperable</td>
+							<td>
+								<p>Declinante severo</p>
+								<p class='font-light text-muted-foreground p-2'>
+									El árbol está en muy mal estado de salud, posiblemente muriendo.
+								</p>
+							</td>
 							<td>1</td>
 						</tr>
 						<tr>
-							<td>Susceptible de mejora</td>
+							<td>
+								<p>Declinante incipiente</p>
+								<p class='font-light text-muted-foreground p-2'>
+									Presenta problemas de salud moderados, pero no críticos.
+								</p>
+							</td>
 							<td>2</td>
 						</tr>
 						<tr>
-							<td>Buena</td>
+							<td>
+								<p>Bueno</p>
+								<p class='font-light text-muted-foreground p-2'>
+									El árbol tiene buena salud general, con pocos o ningún problema.
+								</p>
+							</td>
 							<td>3</td>
 						</tr>
 						<tr>
-							<td>Muy buena</td>
+							<td>
+								<p>Muy bueno</p>
+								<p class='font-light text-muted-foreground p-2'>
+									Está en óptimas condiciones de salud, sin signos de deterioro.
+								</p>
+							</td>
 							<td>4</td>
 						</tr>
 					</tbody>
@@ -254,10 +302,10 @@ const meta = {
 			</Card>
 
 			<Card
-				heading='Daño a infraestructura'
-				subheading='Daño y sus correspondientes valores'
+				heading='Expectativa de vida útil y servicios ambientales'
+				subheading='Estima la cantidad de años que el árbol puede seguir proporcionando beneficios ambientales.'
 				imagePath='/src/assets/tree-svgrepo-com (1).svg'
-				altText='Daño a infraestructura'
+				altText='Expectativa de vida útil y servicios ambientales'
 				imageClass='h-12 w-auto md:-left-16'
 			>
 				<table class='ml-4 text-muted-foreground'>
@@ -281,10 +329,10 @@ const meta = {
 			</Card>
 
 			<Card
-				heading='Valor'
-				subheading='Tipo y sus correspondientes valores'
+				heading='Presencia de otros árboles por longitud'
+				subheading='Analiza la densidad de árboles en un radio de 100 metros.'
 				imagePath='/src/assets/tree-svgrepo-com (2).svg'
-				altText='Valor del árbol'
+				altText='Presencia de otros árboles por longitud'
 				imageClass='h-12 w-auto md:-left-16'
 			>
 				<table class='ml-4 text-muted-foreground'>
@@ -312,10 +360,10 @@ const meta = {
 			</Card>
 
 			<Card
-				heading='Riesgo'
-				subheading='Tipo de riesgo y sus correspondientes valores'
+				heading='Otros valores'
+				subheading='Considera el impacto cultural, histórico o estético del árbol en su entorno.'
 				imagePath='/src/assets/tree-svgrepo-com.svg'
-				altText='Riesgo asociado al árbol'
+				altText='Otros valores'
 				imageClass='h-12 w-auto md:-left-16'
 			>
 				<table class='ml-4 text-muted-foreground'>
@@ -351,8 +399,6 @@ const meta = {
 		</Section>
 	</div>
 </PageLayout>
-
-
 
 <style>
 	table {

@@ -1,0 +1,405 @@
+---
+export const prerender = false
+import Button from '@/components/Button.astro'
+import Card from '@/components/Card.astro'
+import FormOptionsComponent from '@/components/form/FormOptionsComponent.astro'
+import Section from '@/components/Section.astro'
+import PageLayout from '@/layouts/BaseLayout.astro'
+import Image from 'astro/components/Image.astro'
+
+const meta = {
+	description: 'Calculadora de compensación de árboles',
+	title: 'EcoCompensa | Calculadora'
+}
+
+const formSteps = [
+	{
+		step: 1,
+		title: 'Altura del árbol (m)',
+		subtitle: 'Medición en metros desde la base hasta la punta del árbol',
+		options: [
+			{ value: '19', label: 'Hasta 5 (Valor: 19)' },
+			{ value: '35', label: 'Entre 5 y 10 (Valor: 35)' },
+			{ value: '71', label: 'Mayor a 10 (Valor: 71)' }
+		]
+	},
+	{
+		step: 2,
+		title: 'Diámetro del tronco (m)',
+		subtitle: 'Medición en metros del diámetro del tronco del árbol',
+		options: [
+			{ value: '10', label: 'Menor a 0.10 (Valor: 10)' },
+			{ value: '24', label: 'Entre 0.10 y 0.30 (Valor: 24)' },
+			{ value: '35', label: 'Mayor a 0.30 (Valor: 35)' }
+		]
+	},
+	{
+		step: 3,
+		title: 'Volumen de Fronda (m³)',
+		subtitle: 'Medición en metros cúbicos del volumen de la fronda del árbol',
+		options: [
+			{ value: '21', label: 'Menor a 10 (Valor: 21)' },
+			{ value: '21', label: 'Entre 10 y 20 (Valor: 21)' },
+			{ value: '24', label: 'Mayor a 20 (Valor: 24)' }
+		]
+	}
+]
+---
+
+<PageLayout meta={meta}>
+	<div class='flex w-full flex-col gap-8'>
+		<div class=''>
+			<Button title='Volver' href='/' style='button'>
+				<svg
+					xmlns='http://www.w3.org/2000/svg'
+					width='14'
+					height='14'
+					viewBox='0 0 24 24'
+					slot='icon-before'
+				>
+					<path
+						fill='currentColor'
+						d='m6.921 12.5l5.792 5.792L12 19l-7-7l7-7l.713.708L6.921 11.5H19v1z'
+					>
+					</path>
+				</svg>
+			</Button>
+		</div>
+
+		<Section title='Factores y Valores a Considerar'>
+			<Card
+				subheading='Por favor, Selecciona los valores correspondientes a cada criterio para calcular la compensación'
+			/>
+			<Card class='mx-auto flex w-full max-w-2xl flex-col'>
+				<!-- Barra de progreso -->
+				<div class='relative mb-6 h-2 w-full rounded bg-gray-300 dark:bg-gray-800'>
+					<div
+						id='progress-bar'
+						class='h-2 rounded bg-gray-800 transition-all duration-300 dark:bg-gray-50'
+						style='width: 0%;'
+					>
+					</div>
+				</div>
+
+				<!-- Contenedor del formulario -->
+				<form id='arboles-formulario-v2' class='flex flex-col space-y-2'>
+					{formSteps.map((data) => <FormOptionsComponent {data} />)}
+
+					<!-- Botones de navegación -->
+					<div class='flex justify-between'>
+						<button
+							type='button'
+							id='prevBtn'
+							class='hidden rounded border-2 border-gray-200 bg-transparent px-4 py-2 text-gray-700 transition-all duration-300 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-800'
+							>Retroceder</button
+						>
+						<button
+							type='button'
+							id='nextBtn'
+							class='btn-primary rounded border-2 border-gray-800 bg-white px-4 py-2 font-bold text-gray-950 transition-colors duration-300 hover:bg-gray-800 hover:text-gray-50 dark:border-gray-100 dark:bg-transparent dark:text-gray-100 dark:hover:bg-gray-100 dark:hover:text-gray-950'
+							>Siguiente</button
+						>
+						<button
+							type='submit'
+							id='calculateBtn'
+							class='btn-primary hidden rounded border-2 border-gray-800 bg-white px-4 py-2 font-bold text-gray-950 transition-colors duration-300 hover:bg-gray-800 hover:text-gray-50 dark:border-gray-100 dark:bg-transparent dark:text-gray-100 dark:hover:bg-gray-100 dark:hover:text-gray-950'
+							>Calcular Compensación</button
+						>
+					</div>
+				</form>
+			</Card>
+		</Section>
+
+		<Section title='Resultados'>
+			<Card heading='Compensación' subheading='Resultado de la compensación'>
+				<div class='mt-4 grid w-full grid-cols-2'>
+					<input type='radio' id='stats-tab' name='tab' class='hidden' checked />
+					<label
+						for='stats-tab'
+						class='inline-block w-full rounded-ss-md border-2 bg-gray-50 p-3 text-center transition hover:border-gray-800 hover:bg-gray-800 hover:text-gray-50 dark:bg-transparent dark:hover:border-gray-100 dark:hover:bg-gray-100 dark:hover:text-gray-950'
+					>
+						Resultado
+					</label>
+
+					<input type='radio' id='about-tab' name='tab' class='hidden' />
+					<label
+						for='about-tab'
+						class='inline-block w-full rounded-se-md border-2 bg-gray-50 p-3 text-center transition hover:border-gray-800 hover:bg-gray-800 hover:text-gray-50 dark:bg-transparent dark:hover:border-gray-100 dark:hover:bg-gray-100 dark:hover:text-gray-950'
+					>
+						Criterios
+					</label>
+
+					<!-- El contenido ocupa ambas columnas -->
+					<div
+						class='content col-span-2 flex min-h-[330px] flex-col items-center justify-center border-t-0 p-4'
+					>
+						<div class='respuesta'>
+							<div
+								class='response-error flex w-full flex-col items-center justify-center gap-4 p-8'
+							>
+								<Image
+									src='/images/camel-svgrepo-com.svg'
+									alt='Error'
+									width='150'
+									height='150'
+									class='rounded-full border-8 border-gray-200 dark:border-gray-100'
+								/>
+								<p class='text-center text-2xl font-bold text-gray-900 dark:text-gray-100'>
+									¡Ups! No has seleccionado ningún criterio.
+								</p>
+							</div>
+						</div>
+						<div class='criterios scroll-x'>
+							<table class='table'>
+								<!-- Encabezado -->
+								<thead class='table-head'>
+									<tr>
+										<th class='table-cell'>Altura (m)</th>
+										<th class='table-cell'>Diámetro de Tronco (m)</th>
+										<th class='table-cell'>Volumen de Fronda (m³)</th>
+									</tr>
+								</thead>
+								<!-- Cuerpo -->
+								<tbody>
+									<tr class='table-row-odd'>
+										<td class='table-cell'>Hasta 5</td>
+										<td class='table-cell'>Menor a 0.10</td>
+										<td class='table-cell'>Menor a 10</td>
+									</tr>
+									<tr class='table-row-even'>
+										<td class='table-cell'>Entre 5 y 10</td>
+										<td class='table-cell'>Entre 0.10 y 0.30</td>
+										<td class='table-cell'>Entre 10 y 20</td>
+									</tr>
+									<tr class='table-row-odd'>
+										<td class='table-cell'>Mayor a 10</td>
+										<td class='table-cell'>Mayor a 0.30</td>
+										<td class='table-cell'>Mayor a 20</td>
+									</tr>
+								</tbody>
+							</table>
+							<table class='table'>
+								<!-- Encabezado -->
+								<thead class='table-head'>
+									<tr>
+										<th class='table-cell'>Suministro de Planta (Días de Salarios Mínimos)</th>
+										<th class='table-cell'>Plantación (Días de Salarios Mínimos)</th>
+										<th class='table-cell'>Mantenimiento por un Año (Días de Salarios Mínimos)</th>
+									</tr>
+								</thead>
+								<!-- Cuerpo -->
+								<tbody>
+									<tr class='table-row-odd'>
+										<td class='table-cell'>19</td>
+										<td class='table-cell'>10</td>
+										<td class='table-cell'>21</td>
+									</tr>
+									<tr class='table-row-even'>
+										<td class='table-cell'>35</td>
+										<td class='table-cell'>24</td>
+										<td class='table-cell'>21</td>
+									</tr>
+									<tr class='table-row-odd'>
+										<td class='table-cell'>71</td>
+										<td class='table-cell'>35</td>
+										<td class='table-cell'>24</td>
+									</tr>
+								</tbody>
+							</table>
+							<table class='table'>
+								<!-- Encabezado -->
+								<thead class='table-head'>
+									<tr>
+										<th class='table-cell'>Total a Restituir (Días de Salarios Mínimos)</th>
+									</tr>
+								</thead>
+								<!-- Cuerpo -->
+								<tbody>
+									<tr class='table-row-odd'>
+										<td class='table-cell'>50</td>
+									</tr>
+									<tr class='table-row-even'>
+										<td class='table-cell'>80</td>
+									</tr>
+									<tr class='table-row-odd'>
+										<td class='table-cell'>130</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</Card>
+		</Section>
+	</div>
+</PageLayout>
+
+<script>
+	document.addEventListener('astro:page-load', () => {
+		let currentStep = 1
+		const totalSteps = document.querySelectorAll('.step').length
+		const steps = document.querySelectorAll('.step') as NodeListOf<HTMLElement>
+		const progressBar = document.getElementById('progress-bar') as HTMLDivElement
+		const prevBtn = document.getElementById('prevBtn') as HTMLButtonElement
+		const nextBtn = document.getElementById('nextBtn') as HTMLButtonElement
+		const calculateBtn = document.getElementById('calculateBtn') as HTMLButtonElement
+		const respuestaContainer = document.querySelector('.respuesta') as HTMLDivElement
+
+		calculateBtn.addEventListener('click', (event) => {
+			// Mostrar el contenedor de respuesta si está oculto
+			if (respuestaContainer.classList.contains('hidden')) {
+				respuestaContainer.classList.remove('hidden')
+			}
+
+			// Desplazarse al contenedor con la clase 'respuesta'
+			respuestaContainer.scrollIntoView({ behavior: 'smooth' })
+		})
+
+		function showStep(step = 1) {
+			steps.forEach((el, index) => {
+				el.classList.toggle('hidden', index + 1 !== step)
+			})
+
+			// Maneja el estado de los botones
+			prevBtn.style.display = step === 1 ? 'none' : 'inline-block'
+			nextBtn.style.display = step === totalSteps ? 'none' : 'inline-block'
+			calculateBtn.style.display = step === totalSteps ? 'inline-block' : 'none' // Mostrar "Calcular Compensación" solo en el último paso
+
+			// Actualiza la barra de progreso
+			const progressPercentage = ((step - 1) / (totalSteps - 1)) * 100
+			progressBar.style.width = `${progressPercentage}%`
+		}
+
+		nextBtn?.addEventListener('click', () => {
+			if (currentStep < totalSteps) {
+				currentStep++
+				showStep(currentStep)
+			}
+		})
+
+		prevBtn?.addEventListener('click', () => {
+			if (currentStep > 1) {
+				currentStep--
+				showStep(currentStep)
+			}
+		})
+
+		// Mostrar el primer paso inicialmente
+		showStep(currentStep)
+	})
+</script>
+
+<script>
+	document.addEventListener('astro:page-load', () => {
+		const $campoRespuesta = document.querySelector('.respuesta') as HTMLDivElement
+
+		const arbolesFormulario = document.getElementById('arboles-formulario-v2') as HTMLFormElement
+		arbolesFormulario.addEventListener('submit', function (event) {
+			event.preventDefault()
+
+			const data = arbolesFormulario.querySelectorAll(
+				'input[type="radio"]:checked'
+			) as NodeListOf<HTMLInputElement>
+
+			let puntos = 0
+			data.forEach((item) => {
+				puntos += parseInt((item as HTMLInputElement).value)
+				console.log((item as HTMLInputElement).value)
+			})
+
+			const respuestaProcesada = (puntos: number) => {
+				const arboles = calcularArboles(puntos)
+
+				// Mensaje de respuesta con mayor detalle
+				const respuestaHTML = `
+<div class='response-correct flex w-full flex-col items-center justify-center gap-4 p-8'>
+  <p class="text-2xl font-bold text-gray-900 dark:text-gray-100 text-center">
+    Con <span id="puntos" class="text-3xl font-semibold text-green-600 dark:text-green-400">${puntos}</span> puntos, deberás compensar con:
+  </p>
+  <p class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-4 text-center">
+    <span id="dias-salarios" class="text-3xl font-semibold text-green-600 dark:text-green-400">${puntos}</span> días de salario mínimos
+  </p>
+  <p class="text-lg text-gray-900 dark:text-gray-100 mt-4 text-center">
+    ¡Gracias por hacer la diferencia! Tu acción tiene un impacto positivo en el planeta. 🌱🌍
+  </p>
+  <p class="text-sm text-green-600 mt-4 text-center">
+    Para ver los detalles específicos de la compensación, consulta la tabla en la pestaña de "Criterios".
+  </p>
+</div>
+`
+
+				$campoRespuesta.innerHTML = respuestaHTML
+
+				// Animar el incremento de puntos y árboles
+				const puntosElemento = document.getElementById('puntos') as HTMLElement
+				const numeroArboles = document.getElementById('dias-salarios') as HTMLElement
+				setTimeout(() => {
+					incrementarNumero(puntosElemento, puntos)
+					incrementarNumero(numeroArboles, arboles)
+				}, 400)
+			}
+
+			respuestaProcesada(puntos)
+		})
+
+		function calcularArboles(puntos: number): number {
+			return puntos
+		}
+
+		function incrementarNumero(elemento: HTMLElement, valorFinal: number) {
+			let valorActual = 0 // Empezamos desde 0
+			const incremento = Math.ceil(valorFinal / 100) // Dividimos el valor final entre 100 para un incremento más lento
+			const intervalo = setInterval(() => {
+				valorActual += incremento // Aumentamos el valor
+				if (valorActual >= valorFinal) {
+					valorActual = valorFinal // Nos aseguramos de no sobrepasar el valor final
+					clearInterval(intervalo) // Detenemos el intervalo
+				}
+				// Actualizamos el texto del elemento
+				elemento.textContent = valorActual.toString()
+			}, 50) // Ejecutamos la función cada 50 ms para un efecto más lento
+		}
+	})
+</script>
+
+<style>
+	.criterios {
+		@apply overflow-auto;
+	}
+
+	.table {
+		@apply mt-6 w-full text-sm text-gray-700 dark:text-gray-200;
+	}
+
+	.table-cell {
+		@apply p-2 text-center dark:border-gray-600;
+	}
+
+	.table-head {
+		@apply border-b-2 text-xs font-bold text-gray-900 dark:bg-transparent dark:text-gray-100;
+	}
+
+	input:checked + label {
+		@apply border-gray-800 bg-gray-800 text-gray-50  dark:border-gray-100 dark:bg-gray-100 dark:text-gray-800;
+	}
+
+	/* Mostrar solo la respuesta activa */
+	input#stats-tab:checked ~ .content .respuesta {
+		display: block;
+	}
+
+	input#about-tab:checked ~ .content .criterios {
+		display: block;
+	}
+
+	/* Ocultar inicialmente ambas secciones */
+	.respuesta,
+	.criterios {
+		display: none;
+		width: 100%;
+	}
+
+	.scroll-x::-webkit-scrollbar {
+		display: none;
+	}
+</style>

@@ -1,4 +1,5 @@
 ---
+import DropdownMenu from "./DropMenu";
 import ToggleDarkMode from "./ToggleDarkModeButton.tsx";
 
 
@@ -12,12 +13,8 @@ import ToggleDarkMode from "./ToggleDarkModeButton.tsx";
 		<a class='flex-none text-xl font-semibold' href='/' aria-label='Brand'>EcoCompensa</a>
 
 		<div class='flex flex-row items-center justify-center gap-x-5 sm:gap-x-7'>
-			<a
-				href='/calculadora'
-				class='flex-none text-[1.05rem] font-medium hover:text-foreground/75'
-				aria-label='Nav Menu Item'
-				>Calculadora
-			</a>
+
+			<DropdownMenu  client:load/>
 
 			<ToggleDarkMode client:load/>
 		</div>

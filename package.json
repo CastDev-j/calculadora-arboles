@@ -11,14 +11,14 @@
 		"lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,svelte,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,svelte,astro}\""
 	},
 	"dependencies": {
-		"@astrojs/check": "^0.5.6",
+		"@astrojs/check": "^0.5.10",
 		"@astrojs/cloudflare": "^11.2.0",
 		"@astrojs/mdx": "^2.1.1",
 		"@astrojs/netlify": "^5.5.4",
 		"@astrojs/preact": "^3.5.3",
 		"@astrojs/rss": "^4.0.5",
 		"@astrojs/sitemap": "^3.1.1",
-		"@astrojs/tailwind": "^5.1.0",
+		"@astrojs/tailwind": "^5.1.2",
 		"@astrojs/vercel": "^7.3.6",
 		"@vercel/analytics": "^1.2.2",
 		"astro": "^4.4.15",
@@ -33,8 +33,8 @@
 		"remark-unwrap-images": "^4.0.0",
 		"sharp": "^0.33.2",
 		"tailwind-merge": "^2.2.1",
-		"tailwindcss": "^3.4.1",
-		"typescript": "^5.4.2"
+		"tailwindcss": "^3.4.15",
+		"typescript": "^5.7.2"
 	},
 	"devDependencies": {
 		"@tailwindcss/aspect-ratio": "^0.4.2",
